@@ -1,5 +1,7 @@
 # Monix.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/funfix/monix.js.svg)](https://greenkeeper.io/)
+
 Monix.js is a reactive streams library for JavaScript, [TypeScript](https://www.typescriptlang.org/) and [Flow](https://flow.org/).
 
 Inspired by [Scala](http://www.scala-lang.org/) and [Monix](https://monix.io/).
