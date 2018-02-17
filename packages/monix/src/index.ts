@@ -16,5 +16,5 @@
  */
 
 // Export everything
-// export * from "monix-reactive"
-// export * from "monix-types"
+export * from "monix-reactive"
+export * from "monix-types"

@@ -15,5 +15,6 @@
  * limitations under the License.
  */
 
-export * from "./ack"
-export * from "./observer"
+export abstract class Observable {
+
+}

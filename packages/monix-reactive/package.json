@@ -59,5 +59,8 @@
     "fp",
     "functional-programming",
     "reactive streams"
-  ]
+  ],
+  "dependencies": {
+    "monix-types": "0.0.0-development"
+  }
 }

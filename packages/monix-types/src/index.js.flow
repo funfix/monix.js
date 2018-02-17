@@ -18,3 +18,4 @@
 /* @flow */
 
 declare export * from "./ack";
+declare export * from "./observer";
