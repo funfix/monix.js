@@ -5,10 +5,7 @@
   "keywords": [
     "fp",
     "functional-programming",
-    "concurrency",
-    "asynchrony",
-    "reactive streams",
-    "Rx"
+    "reactive streams"
   ],
   "main": "dist/umd.js",
   "module": "dist/index.js",
@@ -21,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/funfix/monix.js"
+    "url": "https://github.com/funfix/monix.js.git"
   },
   "author": "Alexandru Nedelcu <noreply@alexn.org>",
   "license": "Apache-2.0",
@@ -43,7 +40,8 @@
     "fix-types": "../../scripts/fix-types.js ."
   },
   "dependencies": {
-    "monix-core": "0.0.0-development"
+    "monix-types": "0.0.0-development",
+    "monix-reactive": "0.0.0-development"
   },
   "nyc": {
     "include": [

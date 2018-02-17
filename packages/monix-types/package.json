@@ -20,8 +20,7 @@
     "fix-modules": "node ../../scripts/fix-es5.js dist/es5.js",
     "fix-types": "../../scripts/fix-types.js ."
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "files": [
     "dist",
     "src",
@@ -60,9 +59,6 @@
   "keywords": [
     "fp",
     "functional-programming",
-    "concurrency",
-    "reactive-streams",
-    "Rx",
-    "asynchrony"
+    "reactive streams"
   ]
 }

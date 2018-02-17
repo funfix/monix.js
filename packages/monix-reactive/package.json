@@ -58,8 +58,6 @@
   "keywords": [
     "fp",
     "functional-programming",
-    "reactive-streams",
-    "Rx",
-    "asynchrony"
+    "reactive streams"
   ]
 }
