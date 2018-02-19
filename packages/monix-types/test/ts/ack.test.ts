@@ -21,22 +21,22 @@ import { Ack, Continue, Stop } from "../../src"
 
 describe("Ack", () => {
   describe("constructor", () => {
-    it("\"Continue\" string constant", () => {
+    it("is \"Continue\" string constant", () => {
       const goNext: Ack = "Continue"
       assert.equal(goNext, Continue)
     })
 
-    it("\"Stop\" string constant", () => {
+    it("is \"Stop\" string constant", () => {
       const stop: Ack = "Stop"
       assert.equal(stop, Stop)
     })
 
-    it("Future<\"Continue\">", () => {
+    it("is Future<\"Continue\">", () => {
       const goNext: Ack = Future.pure<"Continue">("Continue")
       assert.equal(goNext.value().get(), Success(Continue))
     })
 
-    it("Future<\"Stop\">", () => {
+    it("is Future<\"Stop\">", () => {
       const goNext: Ack = Future.pure<"Stop">("Stop")
       assert.equal(goNext.value().get(), Success(Stop))
     })

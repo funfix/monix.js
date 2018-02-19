@@ -20,3 +20,14 @@ import * as mo from "../../src"
 
 // Testing a la carte import
 import { Observer, SyncObserver, Subscriber, SyncSubscriber, Operator } from "../../src"
+
+const ob1: Observer<string> = {
+  onNext: (value: string): Ack => {
+    return Continue
+  },
+  onComplete: (): void => {
+
+  },
+  onError: (e: Throwable): void => {
+  }
+}

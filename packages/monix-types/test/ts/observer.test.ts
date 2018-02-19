@@ -15,4 +15,25 @@
  * limitations under the License.
  */
 
-import { Observer, SyncObserver, Subscriber, SyncSubscriber, Operator } from "../../src"
+import { Throwable } from "funfix"
+import { Observer, SyncObserver, Subscriber, SyncSubscriber, Operator, Ack, Continue } from "../../src"
+import * as assert from "./asserts"
+
+describe("Observer", () => {
+  describe("interface", () => {
+    it("doesn't change without failure", () => {
+      const ob1: Observer<string> = {
+        onNext: (value: string): Ack => {
+          return Continue
+        },
+        onComplete: (): void => {
+
+        },
+        onError: (e: Throwable): void => {
+        }
+      }
+
+      assert.equal(ob1.onNext("hello"), Continue)
+    })
+  })
+})
