@@ -17,7 +17,7 @@
 
 import * as assert from "./asserts"
 import { Future, Success } from "funfix"
-import { Ack, Continue, Stop } from "../../src/ack"
+import { Ack, Continue, Stop } from "../../src"
 
 describe("Ack", () => {
   describe("constructor", () => {

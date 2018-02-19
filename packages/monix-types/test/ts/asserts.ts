@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2017-2018 by The Funfix Project Developers.
+ * Copyright (c) 2018 by The Monix.js Project Developers.
  * Some rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
