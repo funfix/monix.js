@@ -15,22 +15,23 @@
  * limitations under the License.
  */
 
-import { applyMixins } from "funfix"
-import { OperatorsMixin } from "./internal/mixin"
-import { ObservableBase } from "./internal/observable"
-import { IObservable } from "./instance"
-import { EmptyObservable } from "./internal/builders/empty"
+import { ObservableBase } from "../observable"
+import { IObservable } from "../../instance"
+import { Subscriber } from "monix-types"
+import { Cancelable } from "funfix"
 
 /**
- * apply mixins
+ * Completes immediately on subscribe without issueing any items
  */
-applyMixins(ObservableBase, [OperatorsMixin])
+class EmptyObservableImpl<A> extends ObservableBase<A> {
+  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable {
+    subscriber.onComplete()
 
-export abstract class Observable {
-  /**
-   * Crates new empty ob
-   */
-  static empty<A>(): IObservable<A> {
-    return EmptyObservable
+    return Cancelable.empty()
   }
 }
+
+/**
+ * Empty observable singleton: bottom type, type parameter not used (phantom type)
+ */
+export const EmptyObservable: IObservable<never> = new EmptyObservableImpl()

@@ -15,22 +15,15 @@
  * limitations under the License.
  */
 
-import { applyMixins } from "funfix"
-import { OperatorsMixin } from "./internal/mixin"
-import { ObservableBase } from "./internal/observable"
-import { IObservable } from "./instance"
-import { EmptyObservable } from "./internal/builders/empty"
+import { id } from "funfix"
+import { Observable, IObservable } from "../../src"
+import * as assert from "./asserts"
 
-/**
- * apply mixins
- */
-applyMixins(ObservableBase, [OperatorsMixin])
-
-export abstract class Observable {
-  /**
-   * Crates new empty ob
-   */
-  static empty<A>(): IObservable<A> {
-    return EmptyObservable
-  }
-}
+describe("Observable", () => {
+  describe("empty", () => {
+    it("creates new observable instance", () => {
+      const o1: IObservable<number> = Observable.empty()
+      const o2: IObservable<string> = Observable.empty()
+    })
+  })
+})

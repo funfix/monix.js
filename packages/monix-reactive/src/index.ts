@@ -16,3 +16,5 @@
  */
 
 export * from "./observable"
+export * from "./instance"
+export * from "./operators"

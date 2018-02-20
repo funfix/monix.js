@@ -15,22 +15,15 @@
  * limitations under the License.
  */
 
-import { applyMixins } from "funfix"
-import { OperatorsMixin } from "./internal/mixin"
-import { ObservableBase } from "./internal/observable"
-import { IObservable } from "./instance"
-import { EmptyObservable } from "./internal/builders/empty"
+import { Subscriber, Ack, Operator } from "monix-types"
+import { Throwable, Scheduler, Cancelable } from "funfix"
 
-/**
- * apply mixins
- */
-applyMixins(ObservableBase, [OperatorsMixin])
+export interface IObservable<A> {
+  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
 
-export abstract class Observable {
-  /**
-   * Crates new empty ob
-   */
-  static empty<A>(): IObservable<A> {
-    return EmptyObservable
-  }
+  subscribeWith(out: Subscriber<A>): Cancelable;
+
+  subscribe(nextFn?: (elem: A) => Ack, errorFn?: (e: Throwable) => void, completeFn?: () => void, scheduler?: Scheduler): Cancelable;
+
+  pipe<B>(operator: Operator<A, B>): IObservable<B>;
 }
