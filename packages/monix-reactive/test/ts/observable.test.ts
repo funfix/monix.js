@@ -21,7 +21,7 @@ import * as assert from "./asserts"
 import { EmptyObservable } from "../../src/internal/builders/empty"
 
 describe("Observable", () => {
-  describe("empty", () => {
+  describe(".empty()", () => {
     it("creates new observable instance", () => {
       const o1: IObservable<number> = Observable.empty()
       const o2: IObservable<string> = Observable.empty()
@@ -29,6 +29,12 @@ describe("Observable", () => {
 
     it("returns singleton observable instance", () => {
       assert.equal(Observable.empty(), EmptyObservable)
+    })
+  })
+
+  describe(".pure()", () => {
+    it("creates new observable instance", () => {
+      const o: IObservable<string> = Observable.pure("Hello")
     })
   })
 })

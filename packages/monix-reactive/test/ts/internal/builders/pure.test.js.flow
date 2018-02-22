@@ -17,7 +17,5 @@
 
 import { Observable, IObservable } from "../../../../src"
 
-const o: IObservable<empty> = Observable.empty()
-const o: IObservable<number> = Observable.empty()
-const o: IObservable<string> = Observable.empty()
-const o: IObservable<10> = Observable.empty()
+const o: IObservable<number> = Observable.pure(10)
+const o: IObservable<string> = Observable.pure("hello")

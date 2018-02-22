@@ -15,30 +15,25 @@
  * limitations under the License.
  */
 
-import { applyMixins } from "funfix"
-import { OperatorsMixin } from "./internal/mixin"
-import { ObservableBase } from "./internal/observable"
-import { IObservable } from "./instance"
-import { EmptyObservable } from "./internal/builders/empty"
-import { PureObservable } from "./internal/builders/pure"
+import { ObservableBase } from "../observable"
+import { Subscriber } from "monix-types"
+import { Cancelable } from "funfix"
 
 /**
- * apply mixins
+ * https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala
  */
-applyMixins(ObservableBase, [OperatorsMixin])
+export class PureObservable<A> extends ObservableBase<A> {
 
-export abstract class Observable {
-  /**
-   * Crates new empty ob
-   */
-  static empty<A>(): IObservable<A> {
-    return EmptyObservable
+  constructor(private readonly _value: A) {
+    super()
   }
 
-  /**
-   * Create single value observable
-   */
-  static pure<A>(value: A): IObservable<A> {
-    return new PureObservable(value)
+  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable {
+    // No need to back-pressure for onComplete
+    subscriber.onNext(this._value)
+    // not checking Ack result, onComplete call will be cut by SafeSubscriber
+    subscriber.onComplete()
+
+    return Cancelable.empty()
   }
 }
