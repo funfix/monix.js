@@ -15,20 +15,6 @@
  * limitations under the License.
  */
 
-import { id } from "funfix"
-import { Observable, IObservable } from "../../src"
-import * as assert from "./asserts"
-import { EmptyObservable } from "../../src/internal/builders/empty"
+import { Observable, IObservable } from "../../../../src"
 
-describe("Observable", () => {
-  describe("empty", () => {
-    it("creates new observable instance", () => {
-      const o1: IObservable<number> = Observable.empty()
-      const o2: IObservable<string> = Observable.empty()
-    })
-
-    it("returns singleton observable instance", () => {
-      assert.equal(Observable.empty(), EmptyObservable)
-    })
-  })
-})
+const o: IObservable<empty> = Observable.empty()

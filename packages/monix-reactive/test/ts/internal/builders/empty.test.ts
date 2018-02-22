@@ -15,20 +15,27 @@
  * limitations under the License.
  */
 
-import { id } from "funfix"
-import { Observable, IObservable } from "../../src"
-import * as assert from "./asserts"
-import { EmptyObservable } from "../../src/internal/builders/empty"
+import * as assert from "../../asserts"
+import { Observable } from "../../../../src"
+import { Ack } from "monix-types"
+import { TestScheduler, Throwable } from "funfix"
 
-describe("Observable", () => {
-  describe("empty", () => {
-    it("creates new observable instance", () => {
-      const o1: IObservable<number> = Observable.empty()
-      const o2: IObservable<string> = Observable.empty()
+describe("EmptyObservable", () => {
+  it("should complete immediately", () => {
+    let wasCompleted = false
+    Observable.empty().unsafeSubscribeFn({
+      scheduler: new TestScheduler(),
+      onNext: (elem: any): Ack => {
+        throw new Error("Illegal state")
+      },
+      onError: (e: Throwable): void => {
+        throw e
+      },
+      onComplete: (): void => {
+        wasCompleted = true
+      }
     })
 
-    it("returns singleton observable instance", () => {
-      assert.equal(Observable.empty(), EmptyObservable)
-    })
+    assert.ok(wasCompleted, "Observable succesfully completed")
   })
 })
