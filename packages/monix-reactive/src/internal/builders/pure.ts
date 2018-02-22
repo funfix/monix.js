@@ -20,7 +20,9 @@ import { Subscriber } from "monix-types"
 import { Cancelable } from "funfix"
 
 /**
- * https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala
+ * An {@link IObservable} that issues single element
+ *
+ * Source: [Monix NowObservable](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala)
  */
 export class PureObservable<A> extends ObservableBase<A> {
 

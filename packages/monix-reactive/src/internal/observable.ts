@@ -22,7 +22,8 @@ import { SafeSubscriber } from "./subscribers/safe"
 import { SubscriberWrap } from "./subscribers/wrap"
 
 /**
- * Base class to be extende by all classes implementing IObservable
+ * {@link ObservableBase} partially implements {@link IObservable} and extended internnaly by most
+ *   of {@link IObservable} implementations
  */
 export abstract class ObservableBase<A> implements IObservable<A> {
   abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable

@@ -18,6 +18,9 @@
 import { Ack, Continue, Stop, SyncAck } from "monix-types"
 import { Try, Success, Scheduler } from "funfix"
 
+/**
+ * @private
+ */
 export function syncOn(ack: Ack, callback: (t: Try<SyncAck>) => void): Ack {
   if (ack === Continue || ack === Stop) {
     callback(Success(ack))
@@ -30,6 +33,9 @@ export function syncOn(ack: Ack, callback: (t: Try<SyncAck>) => void): Ack {
   return ack
 }
 
+/**
+ * @private
+ */
 export function syncOnContinue(ack: Ack, callback: () => void): Ack {
   if (ack === Continue) {
     callback()
@@ -44,6 +50,9 @@ export function syncOnContinue(ack: Ack, callback: () => void): Ack {
   return ack
 }
 
+/**
+ * @private
+ */
 export function syncOnStopOrFailure(ack: Ack, callback: () => void): Ack {
   if (ack === Stop) {
     callback()
@@ -58,6 +67,9 @@ export function syncOnStopOrFailure(ack: Ack, callback: () => void): Ack {
   return ack
 }
 
+/**
+ * @private
+ */
 export function syncTryFlatten(ack: Ack, scheduler: Scheduler): Ack {
   if (ack === Continue || ack === Stop) {
     return ack

@@ -27,16 +27,19 @@ import { PureObservable } from "./internal/builders/pure"
  */
 applyMixins(ObservableBase, [OperatorsMixin])
 
+/**
+ * Observable object contains builder methods that help you create new {@link IObservable} instances
+ */
 export abstract class Observable {
   /**
-   * Crates new empty ob
+   * Create empty observable
    */
   static empty<A>(): IObservable<A> {
     return EmptyObservable
   }
 
   /**
-   * Create single value observable
+   * Create an observable which issues single given value and completes
    */
   static pure<A>(value: A): IObservable<A> {
     return new PureObservable(value)

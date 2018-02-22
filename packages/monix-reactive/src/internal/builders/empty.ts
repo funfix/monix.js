@@ -23,8 +23,8 @@ import { Cancelable } from "funfix"
 /**
  * Completes immediately on subscribe without issueing any items
  */
-class EmptyObservableImpl<A> extends ObservableBase<A> {
-  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable {
+class EmptyObservableImpl extends ObservableBase<never> {
+  unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
     subscriber.onComplete()
 
     return Cancelable.empty()
@@ -32,6 +32,8 @@ class EmptyObservableImpl<A> extends ObservableBase<A> {
 }
 
 /**
- * Empty observable singleton: bottom type, type parameter not used (phantom type)
+ * {@link EmptyObservable} completes immediately on subscribe without issueing any values.
+ *  EmptyObservable object uses [Bottom Type](https://en.wikipedia.org/wiki/Bottom_type)
+ *  for elements to match all other types
  */
 export const EmptyObservable: IObservable<never> = new EmptyObservableImpl()
