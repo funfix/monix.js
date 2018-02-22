@@ -15,10 +15,17 @@
  * limitations under the License.
  */
 
-import { IObservable } from "../../instance"
+import { Subscriber } from "monix-types"
 
-declare export class PureObservable<+A> extends IObservable<A> {
-  constructor(_value: A): PureObservable;
+declare export class WrapSubscriber<+A> extends Subscriber<A> {
+  scheduler: Scheduler;
 
-  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
+  constructor(nextFn?: (elem: A) => Ack,
+              errorFn?: (e: Throwable) => void,
+              completeFn?: () => void,
+              scheduler?: Scheduler): WrapSubscriber;
+
+  onNext(elem: A): Ack;
+  onComplete(): void;
+  onError(e: Throwable): void;
 }
