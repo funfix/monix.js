@@ -17,13 +17,10 @@
 
 import { Subscriber } from "monix-types"
 
-declare export class WrapSubscriber<+A> extends Subscriber<A> {
+declare export class SafeSubscriber<+A> extends Subscriber<A> {
   scheduler: Scheduler;
 
-  constructor(nextFn?: (elem: A) => Ack,
-              errorFn?: (e: Throwable) => void,
-              completeFn?: () => void,
-              scheduler?: Scheduler): WrapSubscriber<A>;
+  constructor(subscriber: Subscriber<T>, scheduler?: Scheduler): SafeSubscriber<A>;
 
   onNext(elem: A): Ack;
   onComplete(): void;

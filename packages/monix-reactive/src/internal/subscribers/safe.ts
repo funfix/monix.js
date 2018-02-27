@@ -20,7 +20,15 @@ import { Scheduler, Try, FutureMaker, Throwable } from "funfix"
 import * as AckUtils from "../ack"
 
 /**
- * Wraps given Subscriber to ensure stream laws respected
+ * A safe subscriber safe guards subscriber implementations, such that:
+ *
+ *  - the `onComplete` and `onError` signals are back-pressured
+ *  - errors triggered by downstream observers are caught and logged,
+ *    while the upstream gets an `Ack.Stop`, to stop sending events
+ *  - once an `onError` or `onComplete` was emitted, the observer no longer accepts
+ *    `onNext` events, ensuring that the grammar is respected
+ *  - if downstream signals a `Stop`, the observer no longer accepts any events,
+ *    ensuring that the grammar is respected
  */
 export class SafeSubscriber<T> implements Subscriber<T> {
   private _isDone: boolean = false
@@ -30,6 +38,10 @@ export class SafeSubscriber<T> implements Subscriber<T> {
               readonly scheduler: Scheduler = _subscriber.scheduler) {
   }
 
+  /**
+   * Passes value to downstream observer but only if not completed
+   * @param elem stream element to be consumed
+   */
   onNext(elem: T): Ack {
     if (!this._isDone) {
       try {
@@ -45,6 +57,9 @@ export class SafeSubscriber<T> implements Subscriber<T> {
     }
   }
 
+  /**
+   * Signals completion to downstream observer, but only if not stopped
+   */
   onComplete(): void {
     AckUtils.syncOnContinue(this._ack, () => {
       if (!this._isDone) {
@@ -59,6 +74,10 @@ export class SafeSubscriber<T> implements Subscriber<T> {
     })
   }
 
+  /**
+   * Sinals error to downstream observer, but only if not stopped
+   * @param e error to signal
+   */
   onError(e: Throwable): void {
     AckUtils.syncOnContinue(this._ack, () => this.signalError(e))
   }
@@ -71,14 +90,18 @@ export class SafeSubscriber<T> implements Subscriber<T> {
       this._isDone = true
       return Stop
     } else {
-      return ack.value().fold((): Ack => {
-        const p = FutureMaker.empty<SyncAck>()
-        ack.onComplete((result: Try<SyncAck>) => {
-          p.success(this.handleFailure(result))
-        })
+      return ack.value().fold(
+        (): Ack => {
+          const p = FutureMaker.empty<SyncAck>()
 
-        return p.future()
-      }, (result): Ack => this.handleFailure(result))
+          ack.onComplete((result: Try<SyncAck>) => {
+            p.success(this.handleFailure(result))
+          })
+
+          return p.future()
+        },
+        (result): Ack => this.handleFailure(result)
+      )
     }
   }
 
