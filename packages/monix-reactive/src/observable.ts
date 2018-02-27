@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { applyMixins } from "funfix"
+import { applyMixins, Scheduler } from "funfix"
 import { OperatorsMixin } from "./internal/mixin"
 import { ObservableBase } from "./internal/observable"
 import { IObservable } from "./instance"
@@ -23,6 +23,7 @@ import { EmptyObservable } from "./internal/builders/empty"
 import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"
 import { EvalAlwaysObservable, EvalOnceObservable } from "./internal/builders/eval"
+import { ArrayObservable } from "./internal/builders/array"
 
 /**
  * apply mixins
@@ -63,11 +64,27 @@ export abstract class Observable {
   }
 
   /**
-   * Creates and observable that issues single element from evaluating given expression (function)
+   * Creates an observable that issues single element from evaluating given expression (function)
    * After first evaluation it memoize result value (or error) and uses it for other subscribers
    * @param fn expression to evaluate and retrieve element value
    */
   static evalOnce<A>(fn: () => A): IObservable<A> {
     return new EvalOnceObservable(fn)
+  }
+
+  /**
+   * Creates an observable that issues all elements of given array with backpressure
+   * @param arr array containing elements
+   * @param scheduler optional scheduler
+   */
+  static fromArray<A>(arr: Array<A>, scheduler?: Scheduler): IObservable<A> {
+    return new ArrayObservable(arr, scheduler || Scheduler.global.get())
+  }
+
+  /**
+   * Creates an observable that issues all arguments
+   */
+  static items<A>(...items: Array<A>): IObservable<A> {
+    return new ArrayObservable(items, Scheduler.global.get())
   }
 }
