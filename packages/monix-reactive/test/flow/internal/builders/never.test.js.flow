@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { IObservable } from "../../instance"
+import { Observable, IObservable } from "../../../../src"
 
-/**
- * Empty observable object: bottom type, type parameter not used (phantom type)
- */
-declare export var EmptyObservable: IObservable<empty>
+const o: IObservable<empty> = Observable.never()
+const o: IObservable<number> = Observable.never()
+const o: IObservable<string> = Observable.never()
+const o: IObservable<10> = Observable.never()

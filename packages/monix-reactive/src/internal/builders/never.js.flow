@@ -18,6 +18,6 @@
 import { IObservable } from "../../instance"
 
 /**
- * Empty observable object: bottom type, type parameter not used (phantom type)
+ * Never observable object: bottom type, type parameter not used (phantom type)
  */
-declare export var EmptyObservable: IObservable<empty>
+declare export var NeverObservable: IObservable<empty>

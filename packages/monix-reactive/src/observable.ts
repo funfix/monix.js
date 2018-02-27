@@ -20,6 +20,7 @@ import { OperatorsMixin } from "./internal/mixin"
 import { ObservableBase } from "./internal/observable"
 import { IObservable } from "./instance"
 import { EmptyObservable } from "./internal/builders/empty"
+import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"
 
 /**
@@ -43,5 +44,12 @@ export abstract class Observable {
    */
   static pure<A>(value: A): IObservable<A> {
     return new PureObservable(value)
+  }
+
+  /**
+   * Creates an observable that never issues any elements, completes or fails
+   */
+  static never<A>(): IObservable<A> {
+    return NeverObservable
   }
 }

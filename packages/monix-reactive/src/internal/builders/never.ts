@@ -15,9 +15,23 @@
  * limitations under the License.
  */
 
+import { ObservableBase } from "../observable"
 import { IObservable } from "../../instance"
+import { Subscriber } from "monix-types"
+import { Cancelable } from "funfix"
 
 /**
- * Empty observable object: bottom type, type parameter not used (phantom type)
+ * Never issues elements, complets or fails
  */
-declare export var EmptyObservable: IObservable<empty>
+class NeverObservableImpl extends ObservableBase<never> {
+  unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
+    return Cancelable.empty()
+  }
+}
+
+/**
+ * {@link NeverObservable} never issues any elements, complets of rails
+ *  NeverObservable object uses [Bottom Type](https://en.wikipedia.org/wiki/Bottom_type)
+ *  for elements to match all other types
+ */
+export const NeverObservable: IObservable<never> = new NeverObservableImpl()
