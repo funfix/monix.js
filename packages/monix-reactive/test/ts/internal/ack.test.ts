@@ -64,6 +64,11 @@ describe("Ack", () => {
         done()
       })
     })
+
+    it("returns ack argument", () => {
+      assert.equal(Continue, syncOn(Continue, _ => {}))
+      assert.equal(Stop, syncOn(Stop, _ => {}))
+    })
   })
 
   describe("syncOnContinue", () => {
@@ -114,6 +119,11 @@ describe("Ack", () => {
       })
       s.tick(20)
       assert.not(executed)
+    })
+
+    it("returns ack argument", () => {
+      assert.equal(Continue, syncOnContinue(Continue, () => {}))
+      assert.equal(Stop, syncOnContinue(Stop, () => {}))
     })
   })
 
