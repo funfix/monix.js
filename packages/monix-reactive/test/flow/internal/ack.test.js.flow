@@ -1,0 +1,42 @@
+/*!
+ * Copyright (c) 2018 by The Monix.js Project Developers.
+ * Some rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Future, Try, TestScheduler } from "funfix";
+import * as assert from "../asserts";
+import { Continue, Stop, Ack, SyncAck, AsyncAck } from "monix-types";
+import { syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten } from "../../../src/internal/ack";
+
+const a1: AsyncAck = syncOn(Continue, (r: Try<SyncAck>) => {});
+const a2: AsyncAck = syncOn(Stop, (r: Try<SyncAck>) => {});
+const a3: AsyncAck = syncOn(Future.pure(Continue), (r: Try<SyncAck>) => {});
+const a3: AsyncAck = syncOn(Future.pure(Stop), (r: Try<SyncAck>) => {});
+
+
+const b1: AsyncAck = syncOnContinue(Continue, () => {});
+const b2: AsyncAck = syncOnContinue(Stop, () => {});
+const b3: AsyncAck = syncOnContinue(Future.pure(Continue), () => {});
+const b4: AsyncAck = syncOnContinue(Future.pure(Stop), () => {});
+
+const c1: AsyncAck = syncOnStopOrFailure(Continue, () => {});
+const c2: AsyncAck = syncOnStopOrFailure(Stop, () => {});
+const c3: AsyncAck = syncOnStopOrFailure(Future.pure(Continue), () => {});
+const c4: AsyncAck = syncOnStopOrFailure(Future.pure(Stop), () => {});
+
+const d1: AsyncAck = syncTryFlatten(Stop, new TestScheduler());
+const d1: AsyncAck = syncTryFlatten(Continue, new TestScheduler());
+const d1: AsyncAck = syncTryFlatten(Future.pure(Continue), new TestScheduler());
+const d1: AsyncAck = syncTryFlatten(Future.pure(Stop), new TestScheduler());
