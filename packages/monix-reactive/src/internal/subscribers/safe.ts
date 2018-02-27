@@ -19,6 +19,9 @@ import { Ack, Continue, Stop, Subscriber, SyncAck } from "monix-types"
 import { Scheduler, Try, FutureMaker, Throwable } from "funfix"
 import * as AckUtils from "../ack"
 
+/**
+ * Wraps given Subscriber to ensure stream laws respected
+ */
 export class SafeSubscriber<T> implements Subscriber<T> {
   private _isDone: boolean = false
   private _ack: Ack = Continue

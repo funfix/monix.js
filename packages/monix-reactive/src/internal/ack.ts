@@ -19,21 +19,21 @@ import { Ack, Continue, Stop, SyncAck } from "monix-types"
 import { Try, Success, Scheduler } from "funfix"
 
 /**
+ * Executes callback synchronously for given Ack
  * @private
  */
 export function syncOn(ack: Ack, callback: (t: Try<SyncAck>) => void): Ack {
   if (ack === Continue || ack === Stop) {
     callback(Success(ack))
   } else {
-    ack.onComplete((result) => {
-      callback(result)
-    })
+    ack.onComplete(callback)
   }
 
   return ack
 }
 
 /**
+ * Executes callback only for sync or async Continue ack
  * @private
  */
 export function syncOnContinue(ack: Ack, callback: () => void): Ack {
