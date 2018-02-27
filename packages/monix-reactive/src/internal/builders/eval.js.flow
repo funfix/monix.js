@@ -22,3 +22,9 @@ declare export class EvalAlwaysObservable<+A> extends IObservable<A> {
 
   unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
 }
+
+declare export class EvalOnceObservable<+A> extends IObservable<A> {
+  constructor(_fn: () => A): EvalOnceObservable;
+
+  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
+}

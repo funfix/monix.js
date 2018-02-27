@@ -22,7 +22,7 @@ import { IObservable } from "./instance"
 import { EmptyObservable } from "./internal/builders/empty"
 import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"
-import { EvalAlwaysObservable } from "./internal/builders/eval"
+import { EvalAlwaysObservable, EvalOnceObservable } from "./internal/builders/eval"
 
 /**
  * apply mixins
@@ -60,5 +60,14 @@ export abstract class Observable {
    */
   static eval<A>(fn: () => A): IObservable<A> {
     return new EvalAlwaysObservable(fn)
+  }
+
+  /**
+   * Creates and observable that issues single element from evaluating given expression (function)
+   * After first evaluation it memoize result value (or error) and uses it for other subscribers
+   * @param fn expression to evaluate and retrieve element value
+   */
+  static evalOnce<A>(fn: () => A): IObservable<A> {
+    return new EvalOnceObservable(fn)
   }
 }

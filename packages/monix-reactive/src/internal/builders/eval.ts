@@ -18,10 +18,10 @@
 import { ObservableBase } from "../observable"
 import { IObservable } from "../../instance"
 import { Subscriber } from "monix-types"
-import { Cancelable } from "funfix"
+import { Cancelable, Throwable } from "funfix"
 
 /**
- * An observable that evaluates the given by-name argument and emits it.
+ * An observable that evaluates the given function argument and emits its result.
  */
 export class EvalAlwaysObservable<A> extends ObservableBase<A> {
   constructor(private readonly _fn: () => A) {
@@ -42,6 +42,52 @@ export class EvalAlwaysObservable<A> extends ObservableBase<A> {
         scheduler.reportFailure(e2)
       }
     }
+
+    return Cancelable.empty()
+  }
+}
+
+/**
+ * An observable that evaluates once the given function argument and emits its result.
+ */
+export class EvalOnceObservable<A> extends ObservableBase<A> {
+  private _result!: A
+  private _errorThrown: Throwable | null = null
+  private _hasResult: boolean = false
+
+  constructor(private readonly _eval: () => A) {
+    super()
+  }
+
+  private signalResult(out: Subscriber<A>, value: A, ex: Throwable | null): void {
+    if (ex !== null) {
+      try {
+        out.onError(ex)
+      } catch (e) {
+        out.scheduler.reportFailure(e)
+        out.scheduler.reportFailure(ex)
+      }
+    } else {
+      try {
+        out.onNext(value)
+        out.onComplete()
+      } catch (e) {
+        out.scheduler.reportFailure(e)
+      }
+    }
+  }
+
+  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable {
+    if (!this._hasResult) {
+      try {
+        this._result = this._eval()
+      } catch (e) {
+        this._errorThrown = e
+      }
+      this._hasResult = true
+    }
+
+    this.signalResult(subscriber, this._result, this._errorThrown)
 
     return Cancelable.empty()
   }

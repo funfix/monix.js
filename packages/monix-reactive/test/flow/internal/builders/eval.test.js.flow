@@ -17,6 +17,10 @@
 
 import { Observable, IObservable } from "../../../../src"
 
-const o: IObservable<number> = Observable.eval(() => 101);
-const o: IObservable<string> = Observable.eval(() => "hello");
-const o: IObservable<10> = Observable.eval(() => 10);
+const o1: IObservable<number> = Observable.eval(() => 101);
+const o2: IObservable<string> = Observable.eval(() => "hello");
+const o3: IObservable<10> = Observable.eval(() => 10);
+
+const o4: IObservable<number> = Observable.evalOnce(() => 101);
+const o5: IObservable<string> = Observable.evalOnce(() => "hello");
+const o6: IObservable<10> = Observable.evalOnce(() => 10);
