@@ -176,6 +176,13 @@ describe("Ack", () => {
       s.tick(20)
       assert.not(executed)
     })
+
+    it("returns ack argument", () => {
+      assert.equal(Continue, syncOnStopOrFailure(Continue, () => {}))
+      assert.equal(Stop, syncOnStopOrFailure(Stop, () => {}))
+      const ack = Future.pure(Continue)
+      assert.equal(ack, syncOnStopOrFailure(ack, () => {}))
+    })
   })
 
   describe("syncTryFlatten", () => {
