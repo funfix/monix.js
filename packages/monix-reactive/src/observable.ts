@@ -22,6 +22,7 @@ import { IObservable } from "./instance"
 import { EmptyObservable } from "./internal/builders/empty"
 import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"
+import { EvalAlwaysObservable } from "./internal/builders/eval"
 
 /**
  * apply mixins
@@ -51,5 +52,13 @@ export abstract class Observable {
    */
   static never<A>(): IObservable<A> {
     return NeverObservable
+  }
+
+  /**
+   * Creates an observable that issues single element from evaluating given expression (function)
+   * @param fn expression to evauate and retrieve element value
+   */
+  static eval<A>(fn: () => A): IObservable<A> {
+    return new EvalAlwaysObservable(fn)
   }
 }
