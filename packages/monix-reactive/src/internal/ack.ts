@@ -51,6 +51,7 @@ export function syncOnContinue(ack: Ack, callback: () => void): Ack {
 }
 
 /**
+ * Executes callback only for Stop or failed async Ack
  * @private
  */
 export function syncOnStopOrFailure(ack: Ack, callback: () => void): Ack {
@@ -68,6 +69,7 @@ export function syncOnStopOrFailure(ack: Ack, callback: () => void): Ack {
 }
 
 /**
+ * Tries to flatten ack
  * @private
  */
 export function syncTryFlatten(ack: Ack, scheduler: Scheduler): Ack {

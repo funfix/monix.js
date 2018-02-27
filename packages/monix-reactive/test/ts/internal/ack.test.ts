@@ -18,7 +18,7 @@
 import { Future, Try, TestScheduler } from "funfix"
 import * as assert from "../asserts"
 import { Continue, Stop, Ack, SyncAck, AsyncAck } from "monix-types"
-import { syncOn, syncOnContinue, syncOnStopOrFailure } from "../../../src/internal/ack"
+import { syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten } from "../../../src/internal/ack"
 
 describe("Ack", () => {
   describe("syncOn", () => {
@@ -179,5 +179,26 @@ describe("Ack", () => {
   })
 
   describe("syncTryFlatten", () => {
+    it("should return ack for SyncAck", () => {
+      const s = new TestScheduler()
+      assert.equal(Continue, syncTryFlatten(Continue, s))
+      assert.equal(Stop, syncTryFlatten(Stop, s))
+    })
+
+    it("should return SyncAck for completed AsyncAck", () => {
+      const s = new TestScheduler()
+      assert.equal(Continue, syncTryFlatten(Future.pure(Continue), s))
+      assert.equal(Stop, syncTryFlatten(Future.pure(Stop), s))
+      const ack = Future.of(() => Continue, s).delayResult(1000)
+      // not completed yet, returns ack
+      assert.equal(ack, syncTryFlatten(ack, s))
+      // not completed yet
+      assert.ok(ack.value().isEmpty())
+      // time travel
+      s.tick(1000)
+      // completed now, returns SyncAck
+      assert.ok(ack.value().nonEmpty())
+      assert.equal(Continue, syncTryFlatten(Continue, s))
+    })
   })
 })
