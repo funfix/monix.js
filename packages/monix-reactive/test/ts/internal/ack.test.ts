@@ -18,7 +18,7 @@
 import { Future, Try, TestScheduler } from "funfix"
 import * as assert from "../asserts"
 import { Continue, Stop, Ack, SyncAck, AsyncAck } from "monix-types"
-import { syncOn, syncOnContinue } from "../../../src/internal/ack"
+import { syncOn, syncOnContinue, syncOnStopOrFailure } from "../../../src/internal/ack"
 
 describe("Ack", () => {
   describe("syncOn", () => {
@@ -128,6 +128,54 @@ describe("Ack", () => {
   })
 
   describe("syncOnStopOrFailure", () => {
+    it("should call back for sync Stop", () => {
+      let executed = false
+      syncOnStopOrFailure(Stop, () => {
+        executed = true
+      })
+      assert.ok(executed)
+    })
+
+    it("should call back for async Stop", () => {
+      const s = new TestScheduler()
+      const ack = Future.pure(Stop, s).delayResult(10)
+      let executed = false
+      syncOnStopOrFailure(ack, () => {
+        executed = true
+      })
+      s.tick(20)
+      assert.ok(executed)
+    })
+
+    it("should call back for failed Future", () => {
+      const s = new TestScheduler()
+      const ack = Future.raise(new Error("something went wrong"), s).delayResult(10)
+      let executed = false
+      syncOnStopOrFailure(ack, () => {
+        executed = true
+      })
+      s.tick(20)
+      assert.ok(executed)
+    })
+
+    it("should not call back for Continue", () => {
+      let executed = false
+      syncOnStopOrFailure(Continue, () => {
+        executed = true
+      })
+      assert.not(executed)
+    })
+
+    it("should not call back for async Continue", () => {
+      const s = new TestScheduler()
+      const ack = Future.of(() => Continue, s).delayResult(10)
+      let executed = false
+      syncOnStopOrFailure(ack, () => {
+        executed = true
+      })
+      s.tick(20)
+      assert.not(executed)
+    })
   })
 
   describe("syncTryFlatten", () => {
