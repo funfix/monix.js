@@ -17,7 +17,7 @@
 
 import { applyMixins, Scheduler } from "funfix"
 import { OperatorsMixin } from "./internal/mixin"
-import { ObservableBase } from "./internal/observable"
+import { ObservableInstance } from "./internal/observable"
 import { IObservable } from "./instance"
 import { EmptyObservable } from "./internal/builders/empty"
 import { NeverObservable } from "./internal/builders/never"
@@ -29,7 +29,7 @@ import { LoopObservable } from "./internal/builders/loop"
 /**
  * apply mixins
  */
-applyMixins(ObservableBase, [OperatorsMixin])
+applyMixins(ObservableInstance, [OperatorsMixin])
 
 /**
  * Observable object contains builder methods that help you create new {@link IObservable} instances

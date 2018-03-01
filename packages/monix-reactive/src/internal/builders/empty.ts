@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
+import { ObservableInstance } from "../observable"
 import { IObservable } from "../../instance"
 import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
@@ -23,7 +23,7 @@ import { Cancelable } from "funfix"
 /**
  * Completes immediately on subscribe without issueing any items
  */
-class EmptyObservableImpl extends ObservableBase<never> {
+class EmptyObservableImpl extends ObservableInstance<never> {
   unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
     subscriber.onComplete()
 

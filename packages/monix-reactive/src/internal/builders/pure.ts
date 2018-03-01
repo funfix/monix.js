@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
+import { ObservableInstance } from "../observable"
 import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
@@ -24,7 +24,7 @@ import { Cancelable } from "funfix"
  *
  * Source: [Monix NowObservable](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala)
  */
-export class PureObservable<A> extends ObservableBase<A> {
+export class PureObservable<A> extends ObservableInstance<A> {
 
   constructor(private readonly _value: A) {
     super()

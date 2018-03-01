@@ -23,10 +23,13 @@ import { SafeSubscriber } from "./subscribers/safe"
 import { SubscriberWrap } from "./subscribers/wrap"
 
 /**
- * {@link ObservableBase} partially implements {@link IObservable} and extended internnaly by most
- *   of {@link IObservable} implementations
+ * {@link ObservableInstance} exposes observable instance operations, used internally by implementations
+ *
+ * It's exists mostly to workarround circular reference between {@link Observable}
+ *  and {@link Observer} implementations. Methods implemented in {@link ObservableMixin} which
+ *  is applied _lazily_ in package root modules
  */
-export abstract class ObservableBase<A> implements IObservable<A> {
+export abstract class ObservableInstance<A> implements IObservable<A> {
   abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable
 
   subscribeWith(out: Subscriber<A>): Cancelable {

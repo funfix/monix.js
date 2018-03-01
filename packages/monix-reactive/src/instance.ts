@@ -20,7 +20,7 @@ import { Ack } from "./ack"
 import { Cancelable, Scheduler, Throwable } from "funfix"
 
 /**
- * Observable public interface, to keep ObservableBase and OperatorsMixin in sync
+ * Observable public interface, to keep ObservableInstance and OperatorsMixin in sync
  */
 export interface IObservable<A> {
   unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable

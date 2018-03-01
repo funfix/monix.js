@@ -23,7 +23,7 @@ import { Cancelable, Scheduler, Throwable } from "funfix"
 /**
  * Observable operators mixin
  *
- * Is applied to ObservableBase in order to avoid circular references be
+ * Is applied to ObservableInstance in order to avoid circular references be
  */
 export abstract class OperatorsMixin<A> implements IObservable<A> {
   abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable

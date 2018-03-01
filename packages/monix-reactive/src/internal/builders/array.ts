@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
+import { ObservableInstance } from "../observable"
 import { IObservable } from "../../instance"
 import { Continue, Stop, AsyncAck } from "../../ack"
 import { Subscriber } from "../../observer"
@@ -24,7 +24,7 @@ import { Cancelable, Scheduler, BoolCancelable, IBoolCancelable } from "funfix"
 /**
  * An Observale that issues all elements of an array, with backpressure
  */
-export class ArrayObservable<A> extends ObservableBase<A> {
+export class ArrayObservable<A> extends ObservableInstance<A> {
 
   constructor(private readonly _arr: Array<A>,
               private readonly _scheduler: Scheduler) {
