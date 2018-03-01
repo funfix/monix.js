@@ -23,4 +23,12 @@ import { EmptyObservable } from "../../src/internal/builders/empty"
 const o1: IObservable<number> = Observable.empty();
 const o2: IObservable<string> = Observable.empty();
 
-const o3: IObservable<string> = Observable.pure("Hello")
+const o3: IObservable<string> = Observable.pure("Hello");
+const o4: IObservable<empty> = Observable.never();
+const o4: IObservable<number> = Observable.never();
+const o4: IObservable<string> = Observable.never();
+const o5: IObservable<string> = Observable.eval(() => "hello");
+const o6: IObservable<string> = Observable.evalOnce(() => "ehlo");
+const o7: IObservable<number> = Observable.fromArray([1, 2, 3]);
+const o8: IObservable<number> = Observable.items(1, 2, 3);
+const o9: IObservable<number> = Observable.loop();

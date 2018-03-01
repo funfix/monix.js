@@ -24,6 +24,7 @@ import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"
 import { EvalAlwaysObservable, EvalOnceObservable } from "./internal/builders/eval"
 import { ArrayObservable } from "./internal/builders/array"
+import { LoopObservable } from "./internal/builders/loop"
 
 /**
  * apply mixins
@@ -86,5 +87,12 @@ export abstract class Observable {
    */
   static items<A>(...items: Array<A>): IObservable<A> {
     return new ArrayObservable(items, Scheduler.global.get())
+  }
+
+  /**
+   * Creates an observable that loops indefinitely until stopped, issues integers starting with 0 (zero)
+   */
+  static loop(scheduler?: Scheduler): IObservable<number> {
+    return new LoopObservable(scheduler || Scheduler.global.get())
   }
 }
