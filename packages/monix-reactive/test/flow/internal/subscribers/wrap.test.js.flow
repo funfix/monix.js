@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { Continue } from "../../../../src/ack";
-import { Subscriber } from "../../../../src/observer";
+import { Continue } from "../../../../src";
+import { Subscriber } from "../../../../src";
 import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap";
 
 const s: Subscriber<number> = new SubscriberWrap<number>(

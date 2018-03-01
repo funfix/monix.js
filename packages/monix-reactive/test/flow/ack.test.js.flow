@@ -17,7 +17,7 @@
 
 import { Future, Try, TestScheduler } from "funfix";
 import * as assert from "../asserts";
-import { Continue, Stop, Ack, SyncAck, AsyncAck } from "../../src/ack";
+import { Continue, Stop, Ack, SyncAck, AsyncAck } from "../../src";
 import {
   syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten
 } from "../../../src/internal/ack-utils";

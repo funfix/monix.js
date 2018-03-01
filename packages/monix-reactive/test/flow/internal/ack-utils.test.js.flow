@@ -17,14 +17,13 @@
 
 import { Future, Try, TestScheduler } from "funfix";
 import * as assert from "../asserts";
-import { Continue, Stop, Ack, SyncAck, AsyncAck } from "../../../src/ack";
-import { syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten } from "../../../src/internal/ack";
+import { Continue, Stop, Ack, SyncAck, AsyncAck } from "../../../src";
+import { syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten } from "../../../src/internal/ack-utils";
 
 const a1: AsyncAck = syncOn(Continue, (r: Try<SyncAck>) => {});
 const a2: AsyncAck = syncOn(Stop, (r: Try<SyncAck>) => {});
 const a3: AsyncAck = syncOn(Future.pure(Continue), (r: Try<SyncAck>) => {});
 const a3: AsyncAck = syncOn(Future.pure(Stop), (r: Try<SyncAck>) => {});
-
 
 const b1: AsyncAck = syncOnContinue(Continue, () => {});
 const b2: AsyncAck = syncOnContinue(Stop, () => {});
