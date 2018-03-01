@@ -10,3 +10,5 @@ before_script:
   - yarn install
 script:
   - yarn run build && yarn run test:prod
+after_success:
+  - ./scripts/upload-coverage.sh
