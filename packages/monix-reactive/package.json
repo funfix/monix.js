@@ -61,5 +61,6 @@
     "reactive streams"
   ],
   "dependencies": {
+    "funfix": "^6.2.2"
   }
 }
