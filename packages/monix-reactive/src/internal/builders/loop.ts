@@ -16,7 +16,6 @@
  */
 
 import { ObservableInstance } from "../observable"
-import { IObservable } from "../../instance"
 import { Continue, Stop, AsyncAck } from "../../ack"
 import { Subscriber } from "../../observer"
 import { Cancelable, Scheduler, BoolCancelable, IBoolCancelable } from "funfix"

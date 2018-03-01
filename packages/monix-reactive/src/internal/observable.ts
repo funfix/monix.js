@@ -18,7 +18,6 @@
 import { Ack } from "../ack"
 import { Subscriber, Operator } from "../observer"
 import { Cancelable, Scheduler, Throwable } from "funfix"
-import { IObservable } from "../instance"
 import { SafeSubscriber } from "./subscribers/safe"
 import { SubscriberWrap } from "./subscribers/wrap"
 
@@ -29,7 +28,7 @@ import { SubscriberWrap } from "./subscribers/wrap"
  *  and {@link Observer} implementations. Methods implemented in {@link ObservableMixin} which
  *  is applied _lazily_ in package root modules
  */
-export abstract class ObservableInstance<A> implements IObservable<A> {
+export abstract class ObservableInstance<A> {
   abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable
 
   subscribeWith(out: Subscriber<A>): Cancelable {
@@ -40,5 +39,5 @@ export abstract class ObservableInstance<A> implements IObservable<A> {
     return this.subscribeWith(new SubscriberWrap(nextFn, errorFn, completeFn, scheduler))
   }
 
-  pipe!: <B>(operator: Operator<A, B>) => IObservable<B>
+  pipe!: <B>(operator: Operator<A, B>) => ObservableInstance<B>
 }

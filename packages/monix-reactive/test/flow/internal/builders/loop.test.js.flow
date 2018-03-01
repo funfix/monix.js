@@ -15,6 +15,6 @@
  * limitations under the License.
  */
 
-import { Observable, IObservable } from "../../../../src"
+import { Observable } from "../../../../src"
 
-const o: IObservable<number> = Observable.loop();
+const o: Observable<number> = Observable.loop();

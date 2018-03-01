@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { IObservable } from "../../instance"
+import { ObservableInstance } from "../observable"
 
 /**
  * Never observable object: bottom type, type parameter not used (phantom type)
  */
-declare export var NeverObservable: IObservable<empty>
+declare export var NeverObservable: ObservableInstance<empty>

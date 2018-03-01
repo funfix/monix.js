@@ -16,7 +16,6 @@
  */
 
 import { ObservableInstance } from "../observable"
-import { IObservable } from "../../instance"
 import { Subscriber } from "../../observer"
 import { Cancelable, Throwable } from "funfix"
 

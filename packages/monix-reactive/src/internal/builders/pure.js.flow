@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { IObservable } from "../../instance"
+import { ObservableInstance } from "../observable"
 
-declare export class PureObservable<+A> extends IObservable<A> {
+declare export class PureObservable<+A> extends ObservableInstance<A> {
   constructor(_value: A): PureObservable;
 
   unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
