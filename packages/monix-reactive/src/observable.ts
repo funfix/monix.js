@@ -17,7 +17,7 @@
 
 import { applyMixins, Scheduler } from "funfix"
 import { OperatorsMixin } from "./internal/mixin"
-import { ObservableInstance } from "./internal/observable"
+import { ObservableInstance } from "./internal/instance"
 import { EmptyObservable } from "./internal/builders/empty"
 import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"

@@ -18,7 +18,7 @@
 import { Ack } from "../ack"
 import { Subscriber, Operator } from "../observer"
 import { Cancelable, Scheduler, Throwable } from "funfix"
-import { ObservableInstance } from "./observable"
+import { ObservableInstance } from "./instance"
 
 /**
  * Observable operators mixin

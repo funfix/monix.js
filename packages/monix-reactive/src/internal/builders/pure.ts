@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../observable"
+import { ObservableInstance } from "../instance"
 import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../observable"
+import { ObservableInstance } from "../instance"
 
 declare export class ArrayObservable<+A> extends ObservableInstance<A> {
   constructor(arr: Array<A>,

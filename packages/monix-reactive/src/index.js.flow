@@ -18,3 +18,5 @@
 declare export * from "./observable"
 declare export * from "./instance"
 declare export * from "./operators"
+declare export * from "./ack"
+declare export * from "./observer"
