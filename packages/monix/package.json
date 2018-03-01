@@ -40,7 +40,6 @@
     "fix-types": "../../scripts/fix-types.js ."
   },
   "dependencies": {
-    "monix-types": "0.0.0-development",
     "monix-reactive": "0.0.0-development"
   },
   "nyc": {

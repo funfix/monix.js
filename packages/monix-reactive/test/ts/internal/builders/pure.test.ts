@@ -16,8 +16,7 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable } from "../../../../src"
-import { Ack, Continue, Stop } from "monix-types"
+import { Observable, Ack, Continue, Stop } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 
 describe("PureObservable", () => {

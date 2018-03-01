@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-import { Ack, Continue, Stop, Subscriber, SyncAck } from "monix-types"
+import { Ack, Continue, Stop, SyncAck } from "../../ack"
+import { Subscriber } from "../../observer"
 import { Scheduler, Try, FutureMaker, Throwable } from "funfix"
-import * as AckUtils from "../ack"
+import * as AckUtils from "../ack-utils"
 
 /**
  * A safe subscriber safe guards subscriber implementations, such that:

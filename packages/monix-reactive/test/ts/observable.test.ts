@@ -16,15 +16,15 @@
  */
 
 import { id } from "funfix"
-import { Observable, IObservable } from "../../src"
+import { Observable } from "../../src"
 import * as assert from "./asserts"
 import { EmptyObservable } from "../../src/internal/builders/empty"
 
 describe("Observable", () => {
   describe(".empty()", () => {
     it("creates new observable instance", () => {
-      const o1: IObservable<number> = Observable.empty()
-      const o2: IObservable<string> = Observable.empty()
+      const o1: Observable<number> = Observable.empty()
+      const o2: Observable<string> = Observable.empty()
     })
 
     it("returns singleton observable instance", () => {
@@ -34,7 +34,7 @@ describe("Observable", () => {
 
   describe(".pure()", () => {
     it("creates new observable instance", () => {
-      const o: IObservable<string> = Observable.pure("Hello")
+      const o: Observable<string> = Observable.pure("Hello")
     })
   })
 })

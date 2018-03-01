@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import { Observable, IObservable } from "../../../../src"
+import { Observable } from "../../../../src"
 
-const o1: IObservable<number> = Observable.eval(() => 101);
-const o2: IObservable<string> = Observable.eval(() => "hello");
-const o3: IObservable<10> = Observable.eval(() => 10);
+const o1: Observable<number> = Observable.eval(() => 101);
+const o2: Observable<string> = Observable.eval(() => "hello");
+const o3: Observable<10> = Observable.eval(() => 10);
 
-const o4: IObservable<number> = Observable.evalOnce(() => 101);
-const o5: IObservable<string> = Observable.evalOnce(() => "hello");
-const o6: IObservable<10> = Observable.evalOnce(() => 10);
+const o4: Observable<number> = Observable.evalOnce(() => 101);
+const o5: Observable<string> = Observable.evalOnce(() => "hello");
+const o6: Observable<10> = Observable.evalOnce(() => 10);

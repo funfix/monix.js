@@ -17,8 +17,7 @@
 
 import { applyMixins, Scheduler } from "funfix"
 import { OperatorsMixin } from "./internal/mixin"
-import { ObservableBase } from "./internal/observable"
-import { IObservable } from "./instance"
+import { ObservableInstance } from "./internal/instance"
 import { EmptyObservable } from "./internal/builders/empty"
 import { NeverObservable } from "./internal/builders/never"
 import { PureObservable } from "./internal/builders/pure"
@@ -29,30 +28,30 @@ import { LoopObservable } from "./internal/builders/loop"
 /**
  * apply mixins
  */
-applyMixins(ObservableBase, [OperatorsMixin])
+applyMixins(ObservableInstance, [OperatorsMixin])
 
 /**
- * Observable object contains builder methods that help you create new {@link IObservable} instances
+ * Observable object contains builder methods that help you create new {@link Observable} instances
  */
-export abstract class Observable {
+export abstract class Observable<A> extends ObservableInstance<A> {
   /**
    * Create empty observable
    */
-  static empty<A>(): IObservable<A> {
+  static empty<A>(): Observable<A> {
     return EmptyObservable
   }
 
   /**
    * Create an observable which issues single given value and completes
    */
-  static pure<A>(value: A): IObservable<A> {
+  static pure<A>(value: A): Observable<A> {
     return new PureObservable(value)
   }
 
   /**
    * Creates an observable that never issues any elements, completes or fails
    */
-  static never<A>(): IObservable<A> {
+  static never<A>(): Observable<A> {
     return NeverObservable
   }
 
@@ -60,7 +59,7 @@ export abstract class Observable {
    * Creates an observable that issues single element from evaluating given expression (function)
    * @param fn expression to evauate and retrieve element value
    */
-  static eval<A>(fn: () => A): IObservable<A> {
+  static eval<A>(fn: () => A): Observable<A> {
     return new EvalAlwaysObservable(fn)
   }
 
@@ -69,7 +68,7 @@ export abstract class Observable {
    * After first evaluation it memoize result value (or error) and uses it for other subscribers
    * @param fn expression to evaluate and retrieve element value
    */
-  static evalOnce<A>(fn: () => A): IObservable<A> {
+  static evalOnce<A>(fn: () => A): Observable<A> {
     return new EvalOnceObservable(fn)
   }
 
@@ -78,21 +77,21 @@ export abstract class Observable {
    * @param arr array containing elements
    * @param scheduler optional scheduler
    */
-  static fromArray<A>(arr: Array<A>, scheduler?: Scheduler): IObservable<A> {
+  static fromArray<A>(arr: Array<A>, scheduler?: Scheduler): Observable<A> {
     return new ArrayObservable(arr, scheduler || Scheduler.global.get())
   }
 
   /**
    * Creates an observable that issues all arguments
    */
-  static items<A>(...items: Array<A>): IObservable<A> {
+  static items<A>(...items: Array<A>): Observable<A> {
     return new ArrayObservable(items, Scheduler.global.get())
   }
 
   /**
    * Creates an observable that loops indefinitely until stopped, issues integers starting with 0 (zero)
    */
-  static loop(scheduler?: Scheduler): IObservable<number> {
+  static loop(scheduler?: Scheduler): Observable<number> {
     return new LoopObservable(scheduler || Scheduler.global.get())
   }
 }

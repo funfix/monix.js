@@ -16,8 +16,7 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable } from "../../../../src"
-import { Ack } from "monix-types"
+import { Observable, Ack } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 
 describe("EmptyObservable", () => {

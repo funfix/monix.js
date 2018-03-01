@@ -15,4 +15,4 @@
  * limitations under the License.
  */
 
-import { Observable, IObservable } from "../../src"
+import { Observable } from "../../src"

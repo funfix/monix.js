@@ -15,23 +15,24 @@
  * limitations under the License.
  */
 
-import { IObservable } from "../instance"
-import { Subscriber, Ack, Operator } from "monix-types"
+import { Ack } from "../ack"
+import { Subscriber, Operator } from "../observer"
 import { Cancelable, Scheduler, Throwable } from "funfix"
+import { ObservableInstance } from "./instance"
 
 /**
  * Observable operators mixin
  *
- * Is applied to ObservableBase in order to avoid circular references be
+ * Is applied to ObservableInstance in order to avoid circular references be
  */
-export abstract class OperatorsMixin<A> implements IObservable<A> {
+export abstract class OperatorsMixin<A> {
   abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable
 
   abstract subscribeWith(out: Subscriber<A>): Cancelable
 
   abstract subscribe(nextFn?: (elem: A) => Ack, errorFn?: (e: Throwable) => void, completeFn?: () => void, scheduler?: Scheduler): Cancelable
 
-  pipe<B>(operator: Operator<A, B>): IObservable<B> {
+  pipe<B>(operator: Operator<A, B>): ObservableInstance<B> {
     throw new Error("not implemented")
   }
 }

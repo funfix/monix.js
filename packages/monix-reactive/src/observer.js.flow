@@ -15,5 +15,27 @@
  * limitations under the License.
  */
 
-export * from "./ack"
-export * from "./observer"
+import { Throwable, Scheduler } from "funfix"
+import { Ack, SyncAck } from "./ack"
+
+export interface Observer<T> {
+  onNext(elem: T): Ack;
+
+  onComplete(): void;
+
+  onError(e: Throwable): void;
+}
+
+export interface SyncObserver<T> extends Observer<T> {
+  onNext(elem: T): SyncAck;
+}
+
+export interface Subscriber<T> extends Observer<T> {
+  +scheduler: Scheduler;
+}
+
+export interface SyncSubscriber<T> extends SyncObserver<T> {
+  +scheduler: Scheduler;
+}
+
+export type Operator<I, O> = (s: Subscriber<O>) => Subscriber<I>

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { Observable, IObservable } from "../../../../src"
+import { Observable, Observable } from "../../../../src"
 
-const o: IObservable<number> = Observable.pure(10)
-const o: IObservable<string> = Observable.pure("hello")
+const o: Observable<number> = Observable.pure(10)
+const o: Observable<string> = Observable.pure("hello")

@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
-import { IObservable } from "../../instance"
-import { Subscriber, Continue, Stop, AsyncAck } from "monix-types"
+import { ObservableInstance } from "../instance"
+import { Continue, Stop, AsyncAck } from "../../ack"
+import { Subscriber } from "../../observer"
 import { Cancelable, Scheduler, BoolCancelable, IBoolCancelable } from "funfix"
 
 /**
  * Loops indefinitely until stopped, issues integers starting with 0 (zero)
  */
-export class LoopObservable extends ObservableBase<number> {
+export class LoopObservable extends ObservableInstance<number> {
   constructor(private readonly _scheduler: Scheduler) {
     super()
   }

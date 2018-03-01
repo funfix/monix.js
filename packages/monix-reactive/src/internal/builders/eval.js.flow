@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-import { IObservable } from "../../instance"
+import { ObservableInstance } from "../instance"
 
-declare export class EvalAlwaysObservable<+A> extends IObservable<A> {
+declare export class EvalAlwaysObservable<+A> extends ObservableInstance<A> {
   constructor(_fn: () => A): EvalAlwaysObservable;
 
   unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
 }
 
-declare export class EvalOnceObservable<+A> extends IObservable<A> {
+declare export class EvalOnceObservable<+A> extends ObservableInstance<A> {
   constructor(_fn: () => A): EvalOnceObservable;
 
   unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;

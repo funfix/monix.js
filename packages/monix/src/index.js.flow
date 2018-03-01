@@ -18,4 +18,3 @@
 /* @flow */
 
 declare export * from "monix-reactive"
-declare export * from "monix-types";

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { Subscriber, Stop, Continue, Ack } from "monix-types"
+import { Subscriber, Stop, Continue, Ack } from "../../../../src"
 import { Scheduler, Future, Throwable, TestScheduler } from "funfix"
 import { SafeSubscriber } from "../../../../src/internal/subscribers/safe"
 import * as assert from "../../asserts"

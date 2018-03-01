@@ -16,19 +16,19 @@
  */
 
 import { id } from "funfix"
-import { Observable, IObservable } from "../../src"
+import { Observable } from "../../src"
 import * as assert from "./asserts"
 import { EmptyObservable } from "../../src/internal/builders/empty"
 
-const o1: IObservable<number> = Observable.empty();
-const o2: IObservable<string> = Observable.empty();
+const o1: Observable<number> = Observable.empty();
+const o2: Observable<string> = Observable.empty();
 
-const o3: IObservable<string> = Observable.pure("Hello");
-const o4: IObservable<empty> = Observable.never();
-const o4: IObservable<number> = Observable.never();
-const o4: IObservable<string> = Observable.never();
-const o5: IObservable<string> = Observable.eval(() => "hello");
-const o6: IObservable<string> = Observable.evalOnce(() => "ehlo");
-const o7: IObservable<number> = Observable.fromArray([1, 2, 3]);
-const o8: IObservable<number> = Observable.items(1, 2, 3);
-const o9: IObservable<number> = Observable.loop();
+const o3: Observable<string> = Observable.pure("Hello");
+const o4: Observable<empty> = Observable.never();
+const o4: Observable<number> = Observable.never();
+const o4: Observable<string> = Observable.never();
+const o5: Observable<string> = Observable.eval(() => "hello");
+const o6: Observable<string> = Observable.evalOnce(() => "ehlo");
+const o7: Observable<number> = Observable.fromArray([1, 2, 3]);
+const o8: Observable<number> = Observable.items(1, 2, 3);
+const o9: Observable<number> = Observable.loop();

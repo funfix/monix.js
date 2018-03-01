@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { Observable, IObservable } from "../../../../src"
+import { Observable } from "../../../../src"
 
-const o1: IObservable<number> = Observable.fromArray([1,2,3])
-const o2: IObservable<string> = Observable.fromArray(["one", "two", "three"])
+const o1: Observable<number> = Observable.fromArray([1,2,3])
+const o2: Observable<string> = Observable.fromArray(["one", "two", "three"])
 
-const o3: IObservable<number> = Observable.items(1,2,3)
-const o4: IObservable<string> = Observable.items("one", "two", "three")
+const o3: Observable<number> = Observable.items(1,2,3)
+const o4: Observable<string> = Observable.items("one", "two", "three")

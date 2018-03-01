@@ -16,10 +16,9 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable } from "../../../../src"
-import { Ack, Continue } from "monix-types"
+import { Observable, Ack, Continue } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
-import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap";
+import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap"
 
 describe("EvalAlwaysObservable", () => {
   it("should not eval it's value source if not subscribed", () => {

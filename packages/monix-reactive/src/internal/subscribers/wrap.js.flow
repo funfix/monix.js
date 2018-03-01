@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { Subscriber } from "monix-types"
+import { Subscriber } from "../../observer"
 
 declare export class WrapSubscriber<+A> extends Subscriber<A> {
   scheduler: Scheduler;

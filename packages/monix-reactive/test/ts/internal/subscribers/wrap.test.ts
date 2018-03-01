@@ -17,7 +17,7 @@
 
 import * as assert from "../../asserts"
 import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap"
-import { Ack, Continue, Stop } from "monix-types"
+import { Ack, Continue, Stop } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 
 describe("SubscriberWrap", () => {

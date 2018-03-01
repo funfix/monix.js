@@ -15,17 +15,20 @@
  * limitations under the License.
  */
 
-import { Subscriber, Ack, Operator } from "monix-types"
+import { Ack } from "../ack"
+import { Subscriber, Operator } from "../observer"
 import { Cancelable, Scheduler, Throwable } from "funfix"
-import { IObservable } from "../instance"
 import { SafeSubscriber } from "./subscribers/safe"
 import { SubscriberWrap } from "./subscribers/wrap"
 
 /**
- * {@link ObservableBase} partially implements {@link IObservable} and extended internnaly by most
- *   of {@link IObservable} implementations
+ * {@link ObservableInstance} exposes observable instance operations, used internally by implementations
+ *
+ * It's exists mostly to workarround circular reference between {@link Observable}
+ *  and {@link Observer} implementations. Methods implemented in {@link ObservableMixin} which
+ *  is applied _lazily_ in package root modules
  */
-export abstract class ObservableBase<A> implements IObservable<A> {
+export abstract class ObservableInstance<A> {
   abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable
 
   subscribeWith(out: Subscriber<A>): Cancelable {
@@ -36,5 +39,5 @@ export abstract class ObservableBase<A> implements IObservable<A> {
     return this.subscribeWith(new SubscriberWrap(nextFn, errorFn, completeFn, scheduler))
   }
 
-  pipe!: <B>(operator: Operator<A, B>) => IObservable<B>
+  pipe!: <B>(operator: Operator<A, B>) => ObservableInstance<B>
 }

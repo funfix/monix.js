@@ -15,15 +15,14 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
-import { IObservable } from "../../instance"
-import { Subscriber } from "monix-types"
+import { ObservableInstance } from "../instance"
+import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
 /**
  * Never issues elements, complets or fails
  */
-class NeverObservableImpl extends ObservableBase<never> {
+class NeverObservableImpl extends ObservableInstance<never> {
   unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
     return Cancelable.empty()
   }
@@ -34,4 +33,4 @@ class NeverObservableImpl extends ObservableBase<never> {
  *  NeverObservable object uses [Bottom Type](https://en.wikipedia.org/wiki/Bottom_type)
  *  for elements to match all other types
  */
-export const NeverObservable: IObservable<never> = new NeverObservableImpl()
+export const NeverObservable: ObservableInstance<never> = new NeverObservableImpl()

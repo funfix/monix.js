@@ -15,15 +15,14 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
-import { IObservable } from "../../instance"
-import { Subscriber } from "monix-types"
+import { ObservableInstance } from "../instance"
+import { Subscriber } from "../../observer"
 import { Cancelable, Throwable } from "funfix"
 
 /**
  * An observable that evaluates the given function argument and emits its result.
  */
-export class EvalAlwaysObservable<A> extends ObservableBase<A> {
+export class EvalAlwaysObservable<A> extends ObservableInstance<A> {
   constructor(private readonly _fn: () => A) {
     super()
   }
@@ -50,7 +49,7 @@ export class EvalAlwaysObservable<A> extends ObservableBase<A> {
 /**
  * An observable that evaluates once the given function argument and emits its result.
  */
-export class EvalOnceObservable<A> extends ObservableBase<A> {
+export class EvalOnceObservable<A> extends ObservableInstance<A> {
   private _result!: A
   private _errorThrown: Throwable | null = null
   private _hasResult: boolean = false

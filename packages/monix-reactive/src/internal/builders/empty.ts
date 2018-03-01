@@ -15,15 +15,14 @@
  * limitations under the License.
  */
 
-import { ObservableBase } from "../observable"
-import { IObservable } from "../../instance"
-import { Subscriber } from "monix-types"
+import { ObservableInstance } from "../instance"
+import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
 /**
  * Completes immediately on subscribe without issueing any items
  */
-class EmptyObservableImpl extends ObservableBase<never> {
+class EmptyObservableImpl extends ObservableInstance<never> {
   unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
     subscriber.onComplete()
 
@@ -36,4 +35,4 @@ class EmptyObservableImpl extends ObservableBase<never> {
  *  EmptyObservable object uses [Bottom Type](https://en.wikipedia.org/wiki/Bottom_type)
  *  for elements to match all other types
  */
-export const EmptyObservable: IObservable<never> = new EmptyObservableImpl()
+export const EmptyObservable: ObservableInstance<never> = new EmptyObservableImpl()

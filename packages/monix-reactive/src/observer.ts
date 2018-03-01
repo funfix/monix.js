@@ -47,26 +47,20 @@ export interface SyncObserver<T> extends Observer<T> {
   onNext(elem: T): SyncAck
 }
 
-/**
- * WithScheduler interface defines `scheduler` property, required for Subscriber
- */
-export interface WithScheduler {
-  readonly scheduler: Scheduler
-}
-
 /** A `Subscriber` is an `Observer` with an attached `Scheduler`.
  *
  * A `Subscriber` can be seen as an address that the data source needs
  * in order to send events, along with an execution context.
  */
-export interface Subscriber<T> extends WithScheduler, Observer<T> {
+export interface Subscriber<T> extends Observer<T> {
+  readonly scheduler: Scheduler
 }
 
 /**
  * `SyncSubscriber` si an `SyncObserver` with an attached `Scheduler`
  */
-export interface SyncSubscriber<T> extends WithScheduler, SyncObserver<T> {
-
+export interface SyncSubscriber<T> extends SyncObserver<T> {
+  readonly scheduler: Scheduler
 }
 
 /**
