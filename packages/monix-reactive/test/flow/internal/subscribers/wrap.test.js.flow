@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-import { Subscriber, Continue } from "monix-types";
+import { Continue } from "../../../../src/ack";
+import { Subscriber } from "../../../../src/observer";
 import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap";
 
 const s: Subscriber<number> = new SubscriberWrap<number>(

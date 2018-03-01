@@ -17,7 +17,7 @@
 
 import { ObservableBase } from "../observable"
 import { IObservable } from "../../instance"
-import { Subscriber } from "monix-types"
+import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
 /**

@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
- import { Ack, Continue, Subscriber } from "monix-types"
+import { Ack, Continue } from "../../ack"
+import { Subscriber } from "../../observer"
 import { Scheduler, Throwable } from "funfix"
 
 export class SubscriberWrap<A> implements Subscriber<A> {

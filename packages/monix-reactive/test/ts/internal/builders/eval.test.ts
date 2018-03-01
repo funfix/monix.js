@@ -16,8 +16,7 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable } from "../../../../src"
-import { Ack, Continue } from "monix-types"
+import { Observable, Ack, Continue } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap";
 

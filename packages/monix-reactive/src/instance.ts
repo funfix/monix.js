@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-import { Subscriber, Operator, Ack } from "monix-types"
+import { Subscriber, Operator } from "./observer"
+import { Ack } from "./ack"
 import { Cancelable, Scheduler, Throwable } from "funfix"
 
 /**

@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { Ack, Continue, Stop, SyncAck } from "monix-types"
-import { Try, Success, Scheduler } from "funfix"
+import { Future, Scheduler, Try, Success } from "funfix"
+import { Ack, SyncAck, AsyncAck, Stop, Continue } from "../ack"
 
 /**
  * Executes callback synchronously for given Ack

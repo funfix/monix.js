@@ -17,7 +17,8 @@
 
 import { ObservableBase } from "../observable"
 import { IObservable } from "../../instance"
-import { Subscriber, Continue, Stop, AsyncAck } from "monix-types"
+import { Continue, Stop, AsyncAck } from "../../ack"
+import { Subscriber } from "../../observer"
 import { Cancelable, Scheduler, BoolCancelable, IBoolCancelable } from "funfix"
 
 /**

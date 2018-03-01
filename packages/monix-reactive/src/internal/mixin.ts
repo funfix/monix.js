@@ -16,7 +16,8 @@
  */
 
 import { IObservable } from "../instance"
-import { Subscriber, Ack, Operator } from "monix-types"
+import { Ack } from "../ack"
+import { Subscriber, Operator } from "../observer"
 import { Cancelable, Scheduler, Throwable } from "funfix"
 
 /**

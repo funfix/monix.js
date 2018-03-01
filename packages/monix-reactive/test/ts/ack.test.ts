@@ -15,12 +15,34 @@
  * limitations under the License.
  */
 
-import { Future, Try, TestScheduler } from "funfix"
-import * as assert from "../asserts"
-import { Continue, Stop, Ack, SyncAck, AsyncAck } from "monix-types"
-import { syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten } from "../../../src/internal/ack"
+import { Future, Try, TestScheduler, Success } from "funfix"
+import * as assert from "./asserts"
+import { Continue, Stop, Ack, SyncAck, AsyncAck } from "../../src/ack"
+import { syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten } from "../../src/internal/ack-utils"
 
 describe("Ack", () => {
+  describe("constructor", () => {
+    it("is \"Continue\" string constant", () => {
+      const goNext: Ack = "Continue"
+      assert.equal(goNext, Continue)
+    })
+
+    it("is \"Stop\" string constant", () => {
+      const stop: Ack = "Stop"
+      assert.equal(stop, Stop)
+    })
+
+    it("is Future<\"Continue\">", () => {
+      const goNext: Ack = Future.pure<"Continue">("Continue")
+      assert.equal(goNext.value().get(), Success(Continue))
+    })
+
+    it("is Future<\"Stop\">", () => {
+      const goNext: Ack = Future.pure<"Stop">("Stop")
+      assert.equal(goNext.value().get(), Success(Stop))
+    })
+  })
+
   describe("syncOn", () => {
     it("should call back synchronously with Success(Continue) for Continue ack", () => {
       let result: SyncAck | null = null

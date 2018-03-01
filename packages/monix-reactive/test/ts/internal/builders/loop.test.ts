@@ -16,8 +16,7 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, IObservable } from "../../../../src"
-import { Ack, Continue, Stop } from "monix-types"
+import { Observable, IObservable, Ack, Continue, Stop } from "../../../../src"
 import { TestScheduler, Throwable, Scheduler, Future } from "funfix"
 import { LoopObservable } from "../../../../src/internal/builders/loop"
 

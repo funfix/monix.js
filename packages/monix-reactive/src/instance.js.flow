@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { Subscriber, Ack, Operator } from "monix-types"
+import { Subscriber, Ack, Operator } from "../src"
 import { Throwable, Scheduler, Cancelable } from "funfix"
 
 export interface IObservable<A> {

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { Future } from "funfix"
+import { Future, Scheduler, Try, Success } from "funfix"
 
 /**
  * Use `AckStop` to inform stream producer that it should stop sending values

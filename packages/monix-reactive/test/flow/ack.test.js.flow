@@ -1,0 +1,34 @@
+/*!
+ * Copyright (c) 2018 by The Monix.js Project Developers.
+ * Some rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Future, Try, TestScheduler } from "funfix";
+import * as assert from "../asserts";
+import { Continue, Stop, Ack, SyncAck, AsyncAck } from "../../src/ack";
+import {
+  syncOn, syncOnContinue, syncOnStopOrFailure, syncTryFlatten
+} from "../../../src/internal/ack-utils";
+
+const ackStop: AckStop = "Stop";
+const AckContinue: AckContinue = "Continue";
+const syncAck1: SyncAck = "Continue";
+const syncAck2: SyncAck = "Stop";
+const ack1: Ack = "Stop";
+const ack2: Ack = "Continue";
+const asyncAck1: AsyncAck = Future.pure<AckContinue>("Continue");
+const asyncAck2: AsyncAck = Future.pure<AckStop>("Stop");
+const ack3: Ack = Future.pure<AckContinue>("Continue");
+const ack4: Ack = Future.pure<AckStop>("Stop");
