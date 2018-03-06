@@ -16,3 +16,11 @@
  */
 
 import * as Mx from "../../src"
+
+describe("Operators", () => {
+  describe("id", () => {
+    it("returns original subscriber", () => {
+      const o: Mx.Observable<number> = Mx.pure(10).pipe(Mx.id)
+    })
+  })
+})

@@ -22,9 +22,9 @@ import { Cancelable } from "funfix"
 /**
  * An {@link Observable} that issues single element
  *
+ * Source: [Monix NowObservable](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala)
  * @private
  * @hidden
- * Source: [Monix NowObservable](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala)
  */
 export class PureObservable<A> extends Observable<A> {
 
