@@ -15,6 +15,4 @@
  * limitations under the License.
  */
 
-import { Observable } from "../../../../src"
-
-const o: Observable<number> = Observable.loop();
+import * as Mx from "../../src"

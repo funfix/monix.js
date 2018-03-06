@@ -15,12 +15,17 @@
  * limitations under the License.
  */
 
-import { Observable } from "../../../../src"
+import { empty, never, evalAlways, evalOnce, fromArray, items, loop } from "../../src"
 
-const o1: Observable<number> = Observable.eval(() => 101);
-const o2: Observable<string> = Observable.eval(() => "hello");
-const o3: Observable<10> = Observable.eval(() => 10);
+const o1: Observable<number> = empty();
+const o2: Observable<string> = empty();
 
-const o4: Observable<number> = Observable.evalOnce(() => 101);
-const o5: Observable<string> = Observable.evalOnce(() => "hello");
-const o6: Observable<10> = Observable.evalOnce(() => 10);
+const o3: Observable<string> = pure("Hello");
+const o4: Observable<empty> = never();
+const o4: Observable<number> = never();
+const o4: Observable<string> = never();
+const o5: Observable<string> = evalAlways(() => "hello");
+const o6: Observable<string> = evalOnce(() => "ehlo");
+const o7: Observable<number> = fromArray([1, 2, 3]);
+const o8: Observable<number> = items(1, 2, 3);
+const o9: Observable<number> = loop();
