@@ -16,13 +16,13 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, Ack, Continue, Stop } from "../../../../src"
+import { fromArray, items, Ack, Continue, Stop } from "../../../../src"
 import { TestScheduler, Throwable, Future } from "funfix"
 
 describe("ArrayObservable", () => {
   it("should complete immediately for empty array", () => {
     let wasCompleted = false
-    Observable.fromArray([]).unsafeSubscribeFn({
+    fromArray([]).unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: any): Ack => {
         throw new Error("Illegal state")
@@ -40,7 +40,7 @@ describe("ArrayObservable", () => {
 
   it("can be also created using Observable.items() function", () => {
     let wasCompleted = false
-    Observable.items().unsafeSubscribeFn({
+    items().unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: any): Ack => {
         throw new Error("Illegal state")
@@ -59,7 +59,7 @@ describe("ArrayObservable", () => {
   it("should issue all input array values and complete", () => {
     let wasCompleted = false
     let issued = []
-    Observable.fromArray([1, 2, 3]).unsafeSubscribeFn({
+    fromArray([1, 2, 3]).unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: number): Ack => {
         issued.push(elem)
@@ -80,7 +80,7 @@ describe("ArrayObservable", () => {
   it("should not complete if got Stop ack", () => {
     let wasCompleted = false
     let issued = []
-    Observable.fromArray([1]).unsafeSubscribeFn({
+    fromArray([1]).unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: number): Ack => {
         issued.push(elem)
@@ -101,7 +101,7 @@ describe("ArrayObservable", () => {
   it("should issue elements until got Stop ack", () => {
     let wasCompleted = false
     let issued = []
-    Observable.fromArray([1, 2, 3]).unsafeSubscribeFn({
+    fromArray([1, 2, 3]).unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: number): Ack => {
         issued.push(elem)
@@ -124,7 +124,7 @@ describe("ArrayObservable", () => {
     let wasCompleted = false
     let gotError = false
 
-    Observable.fromArray([1, 2, 3]).unsafeSubscribeFn({
+    fromArray([1, 2, 3]).unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: number): Ack => {
         return Future.raise(new Error("something went wrong"), scheduler)

@@ -15,6 +15,12 @@
  * limitations under the License.
  */
 
-import { Observable } from "../../../../src"
+import * as Mx from "../../src"
 
-const o: Observable<number> = Observable.loop();
+describe("Operators", () => {
+  describe("id", () => {
+    it("returns original subscriber", () => {
+      const o: Mx.Observable<number> = Mx.pure(10).pipe(Mx.id)
+    })
+  })
+})

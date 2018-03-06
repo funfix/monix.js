@@ -15,10 +15,17 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../instance"
+import { empty, never, evalAlways, evalOnce, fromArray, items, loop } from "../../src"
 
-declare export class PureObservable<+A> extends ObservableInstance<A> {
-  constructor(_value: A): PureObservable;
+const o1: Observable<number> = empty();
+const o2: Observable<string> = empty();
 
-  unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable;
-}
+const o3: Observable<string> = pure("Hello");
+const o4: Observable<empty> = never();
+const o4: Observable<number> = never();
+const o4: Observable<string> = never();
+const o5: Observable<string> = evalAlways(() => "hello");
+const o6: Observable<string> = evalOnce(() => "ehlo");
+const o7: Observable<number> = fromArray([1, 2, 3]);
+const o8: Observable<number> = items(1, 2, 3);
+const o9: Observable<number> = loop();

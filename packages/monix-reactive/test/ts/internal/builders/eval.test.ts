@@ -16,14 +16,14 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, Ack, Continue } from "../../../../src"
+import { evalAlways, evalOnce, Ack, Continue } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 import { SubscriberWrap } from "../../../../src/internal/subscribers/wrap"
 
 describe("EvalAlwaysObservable", () => {
   it("should not eval it's value source if not subscribed", () => {
     let executed = false
-    Observable.eval(() => {
+    evalAlways(() => {
       executed = true
       return 0
     })
@@ -35,7 +35,7 @@ describe("EvalAlwaysObservable", () => {
     let executedCnt = 0
     let issuedCnt = 0
     let completedCnt = 0
-    const o = Observable.eval(() => {
+    const o = evalAlways(() => {
       executedCnt += 1
       return executedCnt
     })
@@ -56,7 +56,7 @@ describe("EvalAlwaysObservable", () => {
     let issuedCnt = 0
     let completedCnt = 0
     let failedCnt = 0
-    const o = Observable.eval(() => {
+    const o = evalAlways(() => {
       throw new Error("something went wrong")
     })
 
@@ -70,7 +70,7 @@ describe("EvalAlwaysObservable", () => {
 describe("EvalOnceObservable", () => {
   it("should not eval it's value source if not subscribed", () => {
     let executed = false
-    Observable.evalOnce(() => {
+    evalOnce(() => {
       executed = true
       return 0
     })
@@ -82,7 +82,7 @@ describe("EvalOnceObservable", () => {
     let executedCnt = 0
     let issuedCnt = 0
     let completedCnt = 0
-    const o = Observable.evalOnce(() => {
+    const o = evalOnce(() => {
       executedCnt += 1
       return executedCnt
     })
@@ -104,7 +104,7 @@ describe("EvalOnceObservable", () => {
     let issuedCnt = 0
     let completedCnt = 0
     let failedCnt = 0
-    const o = Observable.evalOnce(() => {
+    const o = evalOnce(() => {
       throw new Error("something went wrong")
     })
     o.subscribe(_ => { issuedCnt += 1; return Continue }, e => { failedCnt += 1 }, () => { completedCnt += 1 })
@@ -116,7 +116,7 @@ describe("EvalOnceObservable", () => {
 
   it("reports downstream failures", () => {
     const scheduler = new TestScheduler()
-    const o = Observable.evalOnce(() => "hello")
+    const o = evalOnce(() => "hello")
 
     assert.equal(scheduler.triggeredFailures().length, 0)
     o.unsafeSubscribeFn(new SubscriberWrap(
@@ -139,7 +139,7 @@ describe("EvalOnceObservable", () => {
     // one more failure reported (total: 2)
     assert.equal(scheduler.triggeredFailures().length, 2)
 
-    Observable.evalOnce(() => { throw new Error("something went wrong") }).unsafeSubscribeFn(new SubscriberWrap(
+    evalOnce(() => { throw new Error("something went wrong") }).unsafeSubscribeFn(new SubscriberWrap(
       _ => Continue,
       e => { throw new Error("Faield to process onComplete") },
       () => { },

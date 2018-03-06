@@ -15,14 +15,16 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../instance"
+import { Observable } from "../../observable"
 import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
 /**
  * Never issues elements, complets or fails
+ * @private
+ * @hidden
  */
-class NeverObservableImpl extends ObservableInstance<never> {
+class NeverObservableImpl extends Observable<never> {
   unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
     return Cancelable.empty()
   }
@@ -32,5 +34,7 @@ class NeverObservableImpl extends ObservableInstance<never> {
  * {@link NeverObservable} never issues any elements, complets of rails
  *  NeverObservable object uses [Bottom Type](https://en.wikipedia.org/wiki/Bottom_type)
  *  for elements to match all other types
+ * @private
+ * @hidden
  */
-export const NeverObservable: ObservableInstance<never> = new NeverObservableImpl()
+export const NeverObservable: Observable<never> = new NeverObservableImpl()

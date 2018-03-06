@@ -16,13 +16,13 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, Ack, Continue, Stop } from "../../../../src"
+import { loop, Observable, Ack, Continue, Stop } from "../../../../src"
 import { TestScheduler, Throwable, Scheduler, Future } from "funfix"
 import { LoopObservable } from "../../../../src/internal/builders/loop"
 
 describe("LoopObservable", () => {
   it("can be created using Observable.loop()", () => {
-    const o: Observable<number> = Observable.loop()
+    const o: Observable<number> = loop()
   })
 
   it("should start with 0, increment by 1 and Stop", () => {

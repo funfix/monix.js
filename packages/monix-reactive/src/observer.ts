@@ -23,18 +23,29 @@ import { Ack, SyncAck } from "./ack"
  * get subscribed to an Observable for receiving events.
  *
  * The events received must follow the Rx grammar, which is:
- *      onNext *   (onComplete | onError)?
+ *      `onNext *   (onComplete | onError)?`
  *
  * That means an Observer can receive zero or multiple events, the stream
- * ending either in one or zero `onComplete` or `onError` (just one, not both),
- * and after onComplete or onError, a well behaved `Observable`
- * implementation shouldn't send any more onNext events.
+ * ending either in one or zero {@link Observer.onComplete} or {@link Observer.onError} (just one, not both),
+ * and after `onComplete` or `onError`, a well behaved `Observable`
+ * implementation shouldn't send any more {@link Observer.onNext} events.
  */
 export interface Observer<T> {
+  /**
+   * Observe new element
+   * @param elem stream element
+   */
   onNext(elem: T): Ack
 
+  /**
+   * Signals stream completion
+   */
   onComplete(): void
 
+  /**
+   * Signals stream error
+   * @param e error object
+   */
   onError(e: Throwable): void
 }
 
@@ -42,6 +53,7 @@ export interface Observer<T> {
  * Observer subtype which accepts only SyncAck from onNext element
  *
  * Events gramar is same as for Observable
+ * @hidden
  */
 export interface SyncObserver<T> extends Observer<T> {
   onNext(elem: T): SyncAck
@@ -58,12 +70,13 @@ export interface Subscriber<T> extends Observer<T> {
 
 /**
  * `SyncSubscriber` si an `SyncObserver` with an attached `Scheduler`
+ * @hidden
  */
 export interface SyncSubscriber<T> extends SyncObserver<T> {
   readonly scheduler: Scheduler
 }
 
 /**
- * `Operator` type alias defines a transformation from one Subscriber to another
+ * `Operator` type alias defines a transformation from one {@link Subscriber} to another
  */
 export type Operator<I, O> = (s: Subscriber<O>) => Subscriber<I>

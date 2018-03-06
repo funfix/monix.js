@@ -19,6 +19,11 @@ import { Ack, Continue } from "../../ack"
 import { Subscriber } from "../../observer"
 import { Scheduler, Throwable } from "funfix"
 
+/**
+ * Wraps functions to Subscriber interface
+ * @private
+ * @hidden
+ */
 export class SubscriberWrap<A> implements Subscriber<A> {
   readonly scheduler: Scheduler
 

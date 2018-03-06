@@ -15,9 +15,21 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../instance"
+import { Observable } from "./observable"
+import { Scheduler } from "funfix"
 
-/**
- * Never observable object: bottom type, type parameter not used (phantom type)
- */
-declare export var NeverObservable: ObservableInstance<empty>
+declare export function empty<A>(): Observable<A>;
+
+declare export function pure<A>(value: A): Observable<A>;
+
+declare export function never<A>(): Observable<A>;
+
+declare export function evalAlways<A>(fn: () => A): Observable<A>;
+
+declare export function evalOnce<A>(fn: () => A): Observable<A>;
+
+declare export function fromArray<A>(arr: Array<A>, scheduler?: Scheduler): Observable<A>;
+
+declare export function items<A>(...items: Array<A>): Observable<A>;
+
+declare export function loop(scheduler?: Scheduler): Observable<number>;

@@ -16,25 +16,25 @@
  */
 
 import { id } from "funfix"
-import { Observable } from "../../src"
+import * as Mx from "../../src"
 import * as assert from "./asserts"
 import { EmptyObservable } from "../../src/internal/builders/empty"
 
-describe("Observable", () => {
-  describe(".empty()", () => {
+describe("Builders", () => {
+  describe("empty()", () => {
     it("creates new observable instance", () => {
-      const o1: Observable<number> = Observable.empty()
-      const o2: Observable<string> = Observable.empty()
+      const o1: Mx.Observable<number> = Mx.empty()
+      const o2: Mx.Observable<string> = Mx.empty()
     })
 
     it("returns singleton observable instance", () => {
-      assert.equal(Observable.empty(), EmptyObservable)
+      assert.equal(Mx.empty(), EmptyObservable)
     })
   })
 
   describe(".pure()", () => {
     it("creates new observable instance", () => {
-      const o: Observable<string> = Observable.pure("Hello")
+      const o: Mx.Observable<string> = Mx.pure("Hello")
     })
   })
 })

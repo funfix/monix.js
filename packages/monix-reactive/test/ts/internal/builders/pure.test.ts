@@ -16,14 +16,14 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, Ack, Continue, Stop } from "../../../../src"
+import { pure, Ack, Continue, Stop } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 
 describe("PureObservable", () => {
   it("should issue 1 element and complete", () => {
     let elementsCnt = 0
     let wasCompleted = false
-    Observable.pure("hello").unsafeSubscribeFn({
+    pure("hello").unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: string): Ack => {
         assert.equal(elem, "hello")
@@ -44,7 +44,7 @@ describe("PureObservable", () => {
 
   it("should not call onComplete if stopped", () => {
     let wasCompleted = false
-    Observable.pure("hello").subscribe(
+    pure("hello").subscribe(
       (element) => {
         return Stop
       },

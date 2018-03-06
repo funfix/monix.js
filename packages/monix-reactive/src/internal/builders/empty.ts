@@ -15,14 +15,16 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../instance"
+import { Observable } from "../../observable"
 import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
 /**
  * Completes immediately on subscribe without issueing any items
+ * @private
+ * @hidden
  */
-class EmptyObservableImpl extends ObservableInstance<never> {
+class EmptyObservableImpl extends Observable<never> {
   unsafeSubscribeFn(subscriber: Subscriber<never>): Cancelable {
     subscriber.onComplete()
 
@@ -34,5 +36,7 @@ class EmptyObservableImpl extends ObservableInstance<never> {
  * {@link EmptyObservable} completes immediately on subscribe without issueing any values.
  *  EmptyObservable object uses [Bottom Type](https://en.wikipedia.org/wiki/Bottom_type)
  *  for elements to match all other types
+ * @private
+ * @hidden
  */
-export const EmptyObservable: ObservableInstance<never> = new EmptyObservableImpl()
+export const EmptyObservable: Observable<never> = new EmptyObservableImpl()
