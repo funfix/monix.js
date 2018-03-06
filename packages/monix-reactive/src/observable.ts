@@ -15,17 +15,27 @@
  * limitations under the License.
  */
 
-import { applyMixins, Scheduler } from "funfix"
-import { OperatorsMixin } from "./internal/mixin"
-import { ObservableInstance } from "./internal/instance"
-
-/**
- * apply mixins
- */
-applyMixins(ObservableInstance, [OperatorsMixin])
+import { applyMixins, Scheduler, Cancelable, Throwable } from "funfix"
+import { Ack } from "./ack"
+import { Subscriber, Operator } from "./observer"
+import { SafeSubscriber } from "./internal/subscribers/safe"
+import { SubscriberWrap } from "./internal/subscribers/wrap"
 
 /**
  * Observable object contains builder methods that help you create new {@link Observable} instances
  */
-export abstract class Observable<A> extends ObservableInstance<A> {
+export abstract class Observable<A> {
+  abstract unsafeSubscribeFn(subscriber: Subscriber<A>): Cancelable
+
+  subscribeWith(out: Subscriber<A>): Cancelable {
+    return this.unsafeSubscribeFn(new SafeSubscriber<A>(out))
+  }
+
+  subscribe(nextFn?: (elem: A) => Ack, errorFn?: (e: Throwable) => void, completeFn?: () => void, scheduler?: Scheduler): Cancelable {
+    return this.subscribeWith(new SubscriberWrap(nextFn, errorFn, completeFn, scheduler))
+  }
+
+  pipe<B>(operator: Operator<A, B>): Observable<B> {
+    throw new Error("not implemented")
+  }
 }

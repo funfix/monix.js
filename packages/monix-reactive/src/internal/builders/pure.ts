@@ -15,16 +15,18 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../instance"
+import { Observable } from "../../observable"
 import { Subscriber } from "../../observer"
 import { Cancelable } from "funfix"
 
 /**
  * An {@link Observable} that issues single element
  *
+ * @private
+ * @hidden
  * Source: [Monix NowObservable](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/internal/builders/NowObservable.scala)
  */
-export class PureObservable<A> extends ObservableInstance<A> {
+export class PureObservable<A> extends Observable<A> {
 
   constructor(private readonly _value: A) {
     super()

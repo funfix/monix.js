@@ -9,8 +9,8 @@ Create observables:
 
 |                   |                                                                                        |
 |-------------------|--------------------------------------------------------------------------------------- |
-| {@link Observable.empty} | Creates an observable that doesn't emit anything, but immediately calls onComplete instead. |
-| {@link Observable.pure}  | Returns an Observable that on execution emits the given strict value. |
+| {@link empty} | Creates an observable that doesn't emit anything, but immediately calls onComplete instead. |
+| {@link pure}  | Returns an Observable that on execution emits the given strict value. |
 
 
 ## Usage
@@ -52,7 +52,7 @@ Usage sample:
 ```typescript
 import * as Mx from "monix"
 
-const stream = Mx.Observable.empty()
+const stream = Mx.empty()
 ```
 
 ### Modules: UMD and ES 2015

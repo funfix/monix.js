@@ -21,6 +21,7 @@ import { Ack, SyncAck, AsyncAck, Stop, Continue } from "../ack"
 /**
  * Executes callback synchronously for given Ack
  * @private
+ * @hidden
  */
 export function syncOn(ack: Ack, callback: (t: Try<SyncAck>) => void): Ack {
   if (ack === Continue || ack === Stop) {
@@ -35,6 +36,7 @@ export function syncOn(ack: Ack, callback: (t: Try<SyncAck>) => void): Ack {
 /**
  * Executes callback only for sync or async Continue ack
  * @private
+ * @hidden
  */
 export function syncOnContinue(ack: Ack, callback: () => void): Ack {
   if (ack === Continue) {
@@ -53,6 +55,7 @@ export function syncOnContinue(ack: Ack, callback: () => void): Ack {
 /**
  * Executes callback only for Stop or failed async Ack
  * @private
+ * @hidden
  */
 export function syncOnStopOrFailure(ack: Ack, callback: () => void): Ack {
   if (ack === Stop) {
@@ -71,6 +74,7 @@ export function syncOnStopOrFailure(ack: Ack, callback: () => void): Ack {
 /**
  * Tries to flatten ack
  * @private
+ * @hidden
  */
 export function syncTryFlatten(ack: Ack, scheduler: Scheduler): Ack {
   if (ack === Continue || ack === Stop) {

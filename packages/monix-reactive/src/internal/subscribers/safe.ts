@@ -30,6 +30,8 @@ import * as AckUtils from "../ack-utils"
  *    `onNext` events, ensuring that the grammar is respected
  *  - if downstream signals a `Stop`, the observer no longer accepts any events,
  *    ensuring that the grammar is respected
+ * @private
+ * @hidden
  */
 export class SafeSubscriber<T> implements Subscriber<T> {
   private _isDone: boolean = false
