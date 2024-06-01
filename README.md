@@ -1,5 +1,8 @@
 # Monix.js
 
+> [!WARNING]
+> This repository has been unmaintained and is now ARCHIVED.
+
 Monix.js is a reactive streams library for JavaScript, [TypeScript](https://www.typescriptlang.org/) and [Flow](https://flow.org/).
 
 Inspired by [Scala](http://www.scala-lang.org/) and [Monix](https://monix.io/).
