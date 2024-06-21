@@ -16,13 +16,13 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, Ack } from "../../../../src"
+import { never, Observable, Ack } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 
 describe("NeverObservable", () => {
   it("should never complete", () => {
     const s = new TestScheduler()
-    Observable.never().unsafeSubscribeFn({
+    never().unsafeSubscribeFn({
       scheduler: s,
       onNext: (elem: any): Ack => {
         throw new Error("Illegal state: onNext should never be called")

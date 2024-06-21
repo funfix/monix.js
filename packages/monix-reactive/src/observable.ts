@@ -15,83 +15,64 @@
  * limitations under the License.
  */
 
-import { applyMixins, Scheduler } from "funfix"
-import { OperatorsMixin } from "./internal/mixin"
-import { ObservableInstance } from "./internal/instance"
-import { EmptyObservable } from "./internal/builders/empty"
-import { NeverObservable } from "./internal/builders/never"
-import { PureObservable } from "./internal/builders/pure"
-import { EvalAlwaysObservable, EvalOnceObservable } from "./internal/builders/eval"
-import { ArrayObservable } from "./internal/builders/array"
-import { LoopObservable } from "./internal/builders/loop"
+import { applyMixins, Scheduler, Cancelable, Throwable } from "funfix"
+import { Ack } from "./ack"
+import { Subscriber, Operator } from "./observer"
+import { SafeSubscriber } from "./internal/subscribers/safe"
+import { SubscriberWrap } from "./internal/subscribers/wrap"
 
 /**
- * apply mixins
+ * Fluent interface to transform and subscribe to streams
  */
-applyMixins(ObservableInstance, [OperatorsMixin])
+export abstract class Observable<A> {
+  /**
+   * Subscribe to stream events (unsafe)
+   * @param out stream subscriber
+   * @hidden
+   */
+  abstract unsafeSubscribeFn(out: Subscriber<A>): Cancelable
+
+  /**
+   * Subscribe to stream events
+   * @param out stream subscriber
+   */
+  subscribeWith(out: Subscriber<A>): Cancelable {
+    return this.unsafeSubscribeFn(new SafeSubscriber<A>(out))
+  }
+
+  /**
+   * Subscribe to stream events
+   *
+   * @param nextFn callback for `onNext` event
+   * @param errorFn callback for `onError` event
+   * @param completeFn callback for `onComplete` event
+   * @param scheduler custom scheduler (optional)
+   */
+  subscribe(nextFn?: (elem: A) => Ack, errorFn?: (e: Throwable) => void, completeFn?: () => void, scheduler?: Scheduler): Cancelable {
+    return this.subscribeWith(new SubscriberWrap(nextFn, errorFn, completeFn, scheduler))
+  }
+
+  /**
+   * Apply a stream transformation defined by given operator
+   * @param operator stream transformation builder
+   */
+  pipe<B>(operator: Operator<A, B>): Observable<B> {
+    return new LiftByOperatorObservable(this, operator)
+  }
+}
 
 /**
- * Observable object contains builder methods that help you create new {@link Observable} instances
+ * @private
+ * @hidden
  */
-export abstract class Observable<A> extends ObservableInstance<A> {
-  /**
-   * Create empty observable
-   */
-  static empty<A>(): Observable<A> {
-    return EmptyObservable
+class LiftByOperatorObservable<A, B> extends Observable<B> {
+  constructor(private readonly _self: Observable<A>,
+              private readonly _operator: Operator<A, B>) {
+    super()
   }
 
-  /**
-   * Create an observable which issues single given value and completes
-   */
-  static pure<A>(value: A): Observable<A> {
-    return new PureObservable(value)
-  }
-
-  /**
-   * Creates an observable that never issues any elements, completes or fails
-   */
-  static never<A>(): Observable<A> {
-    return NeverObservable
-  }
-
-  /**
-   * Creates an observable that issues single element from evaluating given expression (function)
-   * @param fn expression to evauate and retrieve element value
-   */
-  static eval<A>(fn: () => A): Observable<A> {
-    return new EvalAlwaysObservable(fn)
-  }
-
-  /**
-   * Creates an observable that issues single element from evaluating given expression (function)
-   * After first evaluation it memoize result value (or error) and uses it for other subscribers
-   * @param fn expression to evaluate and retrieve element value
-   */
-  static evalOnce<A>(fn: () => A): Observable<A> {
-    return new EvalOnceObservable(fn)
-  }
-
-  /**
-   * Creates an observable that issues all elements of given array with backpressure
-   * @param arr array containing elements
-   * @param scheduler optional scheduler
-   */
-  static fromArray<A>(arr: Array<A>, scheduler?: Scheduler): Observable<A> {
-    return new ArrayObservable(arr, scheduler || Scheduler.global.get())
-  }
-
-  /**
-   * Creates an observable that issues all arguments
-   */
-  static items<A>(...items: Array<A>): Observable<A> {
-    return new ArrayObservable(items, Scheduler.global.get())
-  }
-
-  /**
-   * Creates an observable that loops indefinitely until stopped, issues integers starting with 0 (zero)
-   */
-  static loop(scheduler?: Scheduler): Observable<number> {
-    return new LoopObservable(scheduler || Scheduler.global.get())
+  unsafeSubscribeFn(subscriber: Subscriber<B>): Cancelable {
+    const sb = this._operator(subscriber)
+    return this._self.unsafeSubscribeFn(sb)
   }
 }

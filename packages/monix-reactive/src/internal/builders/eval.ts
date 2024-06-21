@@ -15,14 +15,16 @@
  * limitations under the License.
  */
 
-import { ObservableInstance } from "../instance"
+import { Observable } from "../../observable"
 import { Subscriber } from "../../observer"
 import { Cancelable, Throwable } from "funfix"
 
 /**
  * An observable that evaluates the given function argument and emits its result.
+ * @private
+ * @hidden
  */
-export class EvalAlwaysObservable<A> extends ObservableInstance<A> {
+export class EvalAlwaysObservable<A> extends Observable<A> {
   constructor(private readonly _fn: () => A) {
     super()
   }
@@ -48,8 +50,10 @@ export class EvalAlwaysObservable<A> extends ObservableInstance<A> {
 
 /**
  * An observable that evaluates once the given function argument and emits its result.
+ * @private
+ * @hidden
  */
-export class EvalOnceObservable<A> extends ObservableInstance<A> {
+export class EvalOnceObservable<A> extends Observable<A> {
   private _result!: A
   private _errorThrown: Throwable | null = null
   private _hasResult: boolean = false

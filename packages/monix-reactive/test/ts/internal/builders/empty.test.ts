@@ -16,13 +16,13 @@
  */
 
 import * as assert from "../../asserts"
-import { Observable, Ack } from "../../../../src"
+import { empty, Ack } from "../../../../src"
 import { TestScheduler, Throwable } from "funfix"
 
 describe("EmptyObservable", () => {
   it("should complete immediately", () => {
     let wasCompleted = false
-    Observable.empty().unsafeSubscribeFn({
+    empty().unsafeSubscribeFn({
       scheduler: new TestScheduler(),
       onNext: (elem: any): Ack => {
         throw new Error("Illegal state")
